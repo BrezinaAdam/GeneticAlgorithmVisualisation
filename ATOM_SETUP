@@ -1,0 +1,20 @@
+nastavenia editora Atom
+
+usefull packages:
+  ├── atom-beautify
+  ├── atom-css-comb
+  ├── atom-html-preview
+  ├── color-picker
+  ├── file-type-icons
+  └── teletype
+
+hint1:
+  in index.html file --> to open webbrowser for realtime changes type:
+    └── CTRL + SHIFT + H
+
+hint2:
+  to make teletype work:
+    ├── on github: setting->developer settings->personal access tokens->generate token
+    ├── click teletype icon -> copy token here
+    ├── join or generate portal ID
+    └── collaborate with others on one file at one moment
