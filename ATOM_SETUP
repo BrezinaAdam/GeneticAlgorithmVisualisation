@@ -1,6 +1,6 @@
 How to setup Atom for this project..
 
-usefull packages:
+useful packages:
   ├── atom-beautify
   ├── atom-css-comb
   ├── atom-html-preview
@@ -9,12 +9,24 @@ usefull packages:
   └── teletype
 
 hint1:
-  in index.html file --> to open webbrowser for realtime changes type:
+  in index.html file --> to open web browser for realtime changes type:
     └── CTRL + SHIFT + H
 
 hint2:
+  setting up GitHub client in Atom:
+    ├── on GitHub webpage: setting->developer settings->personal access tokens->generate token
+    ├── in Atom: Packages->GitHub->Toggle GitHub Tab
+    ├── copy token here
+    ├── add project link: https://github.com/BrezinaAdam/GeneticAlgorithmVisualisation.git
+    ├── first pull project
+    ├── create your branch
+    ├── make some changes
+    ├── commit and push under your branch
+    └── later merge with origin master
+
+hint3:
   to make teletype work:
-    ├── on github: setting->developer settings->personal access tokens->generate token
+    ├── on GitHub webpage: setting->developer settings->personal access tokens->generate token
     ├── click teletype icon -> copy token here
     ├── join or generate portal ID
     └── collaborate with others on one file at one moment
