@@ -9,17 +9,19 @@
   <meta name="description" content="GenAlgVis">
   <meta name="author" content="Siemens">
 
-  <link rel="stylesheet" href="style.css?v=1.0">
+  <link rel="stylesheet" href="css/style.css?v=1.0">
+
+  <script type="text/javascript" src="js/d3.v4.min.js" charset="utf"></script>
 </head>
 
 <!-- HEADER -->
 <header>
 
-  <h2>Genetic Algoritm Visualisation</h2>
+  <h2>Genetic Algorithm Visualisation</h2>
   <div class="w3-bar w3-black">
-    <button class="w3-bar-item w3-button" onclick="openCity('London')">London</button>
-    <button class="w3-bar-item w3-button" onclick="openCity('Paris')">Paris</button>
-    <button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>
+    <button class="w3-bar-item w3-button" onclick="openCity('London')">Neural network</button>
+    <button class="w3-bar-item w3-button" onclick="openCity('Paris')">Genetic algorithm</button>
+    <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
   </div>
 
 </header>
@@ -29,13 +31,78 @@
 <body>
 
   <div id="London" class="w3-container city">
-    <h2>London</h2>
-    <p>London is the capital city of England.</p>
+    <table>
+      <tr>
+        <td>
+          <svg class="canvas2"></svg>
+        </td>
+        <td>
+          <svg class="canvas5"></svg>
+        </td>
+        <td>
+          <svg class="canvas1"></svg>
+        </td>
+        <td>
+          <div id="synapse">
+            <table>
+              <tr>
+                <td valign="top">
+                  <span>w1: </span><input type="text" /><br/>
+                  <span>b1: </span><input type="text" /><br/>
+                  <span>w2: </span><input type="text" /><br/>
+                  <span>b2: </span><input type="text" /><br/>
+                  <span>w3: </span><input type="text" /><br/>
+                  <span>b3: </span><input type="text" /><br/>
+                  <span>w4: </span><input type="text" /><br/>
+                  <span>b4: </span><input type="text" /><br/>
+                  <span>w5: </span><input type="text" /><br/>
+                  <span>b5: </span><input type="text" />
+                </td>
+                <td valign="top">
+                  <span>w6: </span><input type="text" /><br/>
+                  <span>w7: </span><input type="text" /><br/>
+                  <span>w8: </span><input type="text" /><br/>
+                  <span>w9: </span><input type="text" /><br/>
+                  <span>w10: </span><input type="text" /><br/>
+                  <span>b6: </span><input type="text" />
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p id="err">Square error: </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <svg class="canvas3"></svg>
+        </td>
+        <td>
+          <svg class="canvas6"></svg>
+        </td>
+        <td colspan="2" rowspan="2">
+          <img src="img/net.png" id="gui">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <svg class="canvas4"></svg>
+        </td>
+        <td>
+          <svg class="canvas7"></svg>
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript" src="js/neuron.js"></script>
+    <script type="text/javascript" src="js/handlers.js"></script>
+    <script type="text/javascript" src="js/makedataset.js"></script>
+    <script type="text/javascript" src="js/visualization.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
   </div>
 
   <div id="Paris" class="w3-container city" style="display:none">
-    <h2>Paris</h2>
-    <p>Paris is the capital of France.</p>
+    <!--<h2>Paris</h2>
+    <p>Paris is the capital of France.</p>-->
   </div>
 
   <div id="Tokyo" class="w3-container city" style="display:none">

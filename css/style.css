@@ -59,3 +59,52 @@ button:active{
   -webkit-transition-duration: 0s; /* Safari */
   transition-duration: 0s;
 }
+
+svg{
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  background-color: rgb(211, 218, 227);
+}
+
+input{
+  background-color: rgb(211, 218, 227);
+}
+
+.line
+{
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.line2
+{
+  fill: none;
+  stroke: green;
+  stroke-width: 2px;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+#synapse span{
+  float: left;
+  width: 30px;
+}
+
+#London{
+  min-height: 980px;
+}
+
+#London table{
+  margin-left: auto;
+  margin-right: auto;
+}
