@@ -11,8 +11,8 @@ class Mutation {
 
   /**
     This function returns 'n' random numbers from 0-'max'
-    @param {!number} n
-    @param {!number} max
+    @param {!number} n Number of indexes to create.
+    @param {!number} max Maximal range(0-max)
     @returns {Array.<number>}
   */
   getRandList(n, max){
@@ -41,6 +41,9 @@ class Mutation {
   /**
     This function returns mutated population from the old one.
     @param {Array.Array.<number>} pop Array of all genotypes in population.
+    @param {String} type Type of genotyp (BINARY|INTEGER|FLOAT).
+    @param {number} min Minimal change of value in mutation.
+    @param {number} max Maximal change of value in mutation.
     @returns {Array.Array.<number>}
   */
   getMutatedPopulation(pop, type, min=0, max=1){
