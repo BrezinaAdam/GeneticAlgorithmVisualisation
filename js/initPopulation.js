@@ -1,4 +1,4 @@
-class InitPopulation {
+export default class InitPopulation {
   constructor(length, type) {
     this.type = type;
     this.length = length;
@@ -7,40 +7,38 @@ class InitPopulation {
     this.genotyp = [this.length];
   }
 
-  setLimits(min, max){
+  setLimits(min, max) {
     this.min = min;
     this.max = max;
   }
 
-  getPopulation(){
-    if(this.type == "BINARY")
-    {
-      for(var i = 0; i < this.length; i++)
-      {
+  getGenotyp() {
+    this.genotyp = [this.length];
+    if (this.type == "BINARY") {
+      for (var i = 0; i < this.length; i++) {
         this.genotyp[i] = Math.round(Math.random()) * (this.max - this.min) + this.min;
       }
-    }
-    else if (this.type == "INTEGER")
-    {
-      for(var i = 0; i < this.length; i++)
-      {
+    } else if (this.type == "INTEGER") {
+      for (var i = 0; i < this.length; i++) {
         this.genotyp[i] = Math.round(Math.random() * (this.max - this.min) + this.min);
       }
-    }
-    else if (this.type == "FLOAT")
-    {
-      for(var i = 0; i < this.length; i++)
-      {
+    } else if (this.type == "FLOAT") {
+      for (var i = 0; i < this.length; i++) {
         this.genotyp[i] = Math.random() * (this.max - this.min) + this.min;
       }
     }
 
-    console.log(this.genotyp);
+    return this.genotyp;
   }
-}
 
-var a = new InitPopulation(5, "INTEGER");
-a.setLimits(5,10);
-a.getPopulation();
-a.getPopulation();
-a.getPopulation();
+  getPopulation(size){
+    var population = [size];
+
+    for(var i = 0; i < size; i++){
+      population[i] = this.getGenotyp();
+    }
+
+    return population;
+  }
+
+}
