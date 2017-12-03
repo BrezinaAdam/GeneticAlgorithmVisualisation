@@ -58,6 +58,7 @@ class InitPopulation {
 }
 
 ///*  example of usage
-var a = new InitPopulation([0, 0, 0, 0, 0, 0, 0], "BINARY");
-console.log(a.getPopulation(10));
+//var a = new InitPopulation([0, 0, 0, 0, 0, 0, 0], "BINARY");
+//console.log(a.getPopulation(10));
 //*/
+export InitPopulation
