@@ -30,3 +30,6 @@ hint3:
     ├── click teletype icon -> copy token here
     ├── join or generate portal ID
     └── collaborate with others on one file at one moment
+
+hint4:
+    -- install node.js
