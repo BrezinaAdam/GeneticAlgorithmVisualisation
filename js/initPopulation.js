@@ -1,4 +1,4 @@
-export default class InitPopulation {
+class InitPopulation {
   constructor(length, type) {
     this.type = type;
     this.length = length;
@@ -42,3 +42,9 @@ export default class InitPopulation {
   }
 
 }
+
+/*  example of usage
+var a = new InitPopulation(10, "INTEGER");
+a.setLimits(2,8);
+console.log(a.getPopulation(20));
+*/
