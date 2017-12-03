@@ -1,28 +1,35 @@
 class InitPopulation {
-  constructor(length, type) {
+  /**
+    This function returns ...
+    @param {number} length
+    @param {string} type
+  */
+  constructor(length, type, min = 0, max = 1) {
     this.type = type;
     this.length = length;
-    this.max = 1;
-    this.min = 0;
+    this.max = max;
+    this.min = min;
     this.genotyp = [this.length];
   }
 
-  setLimits(min, max) {
-    this.min = min;
-    this.max = max;
-  }
-
+  /**
+    This function  ...
+    @returns {Array.<number>}
+  */
   getGenotyp() {
     this.genotyp = [this.length];
+
     if (this.type == "BINARY") {
       for (var i = 0; i < this.length; i++) {
         this.genotyp[i] = Math.round(Math.random()) * (this.max - this.min) + this.min;
       }
-    } else if (this.type == "INTEGER") {
+    }
+    else if (this.type == "INTEGER") {
       for (var i = 0; i < this.length; i++) {
         this.genotyp[i] = Math.round(Math.random() * (this.max - this.min) + this.min);
       }
-    } else if (this.type == "FLOAT") {
+    }
+    else if (this.type == "FLOAT") {
       for (var i = 0; i < this.length; i++) {
         this.genotyp[i] = Math.random() * (this.max - this.min) + this.min;
       }
@@ -31,6 +38,11 @@ class InitPopulation {
     return this.genotyp;
   }
 
+  /**
+    This function  ...
+    @param {number} size
+    @returns {Array.Array.<number>}
+  */
   getPopulation(size){
     var population = [size];
 
