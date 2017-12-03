@@ -1,12 +1,14 @@
 class InitPopulation {
   /**
     This function returns ...
-    @param {number} length
+    @param {Array.<number>} genotyp
     @param {string} type
+    @param {number} min
+    @param {number} max
   */
-  constructor(length, type, min = 0, max = 1) {
+  constructor(genotyp, type, min = 0, max = 1) {
     this.type = type;
-    this.length = length;
+    this.length = genotyp.length;
     this.max = max;
     this.min = min;
     this.genotyp = [this.length];
@@ -55,8 +57,7 @@ class InitPopulation {
 
 }
 
-/*  example of usage
-var a = new InitPopulation(10, "INTEGER");
-a.setLimits(2,8);
-console.log(a.getPopulation(20));
-*/
+///*  example of usage
+var a = new InitPopulation([0, 0, 0, 0, 0, 0, 0], "BINARY");
+console.log(a.getPopulation(10));
+//*/

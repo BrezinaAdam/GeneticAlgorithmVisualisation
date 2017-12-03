@@ -30,7 +30,7 @@ class CrossOver {
       }
     }
 
-    var output = {child1, child2};
+    var output = [child1, child2];
     return output;
   }
 
@@ -56,8 +56,8 @@ class CrossOver {
   }
 }
 
-/*
+///*
 var a = new CrossOver();
-a.setParrents([1, 0, 0, 1, 0, 1],[0, 1, 0, 0, 1, 0]);
-console.log(a.getChilds());
-*/
+var pop = [[1, 0, 1, 1, 1, 1, 1],[1, 1, 1, 1, 0, 1, 1],[0, 1, 1, 1, 1, 1, 1],[1, 1, 1, 1, 1, 1, 0]];
+console.log(a.getNewGeneration(pop));
+//*/

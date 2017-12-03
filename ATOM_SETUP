@@ -2,6 +2,7 @@ How to setup Atom for this project..
 
 useful packages:
   ├── atom-beautify
+  ├── script
   ├── atom-css-comb
   ├── atom-html-preview
   ├── color-picker
