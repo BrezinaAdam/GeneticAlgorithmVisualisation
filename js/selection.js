@@ -30,7 +30,7 @@ class Selection {
     // something to do
   }
 
-  getSelectedParrents(pop, fitness type){
+  getSelectedParrents(pop, fitness, type){
     this.population = pop;
     this.fitness = fitness;
     this.type = type;
