@@ -1,10 +1,10 @@
 class InitPopulation {
   /**
     This function returns ...
-    @param {Array.<number>} genotyp
-    @param {string} type
-    @param {number} min
-    @param {number} max
+    @param {Array.<number>} genotyp ...
+    @param {string} type ...
+    @param {number} min ...
+    @param {number} max ...
   */
   constructor(genotyp, type, min = 0, max = 1) {
     this.type = type;
@@ -42,7 +42,7 @@ class InitPopulation {
 
   /**
     This function  ...
-    @param {number} size
+    @param {number} size ...
     @returns {Array.Array.<number>}
   */
   getPopulation(size){
@@ -57,8 +57,8 @@ class InitPopulation {
 
 }
 
-///*  example of usage
-//var a = new InitPopulation([0, 0, 0, 0, 0, 0, 0], "BINARY");
-//console.log(a.getPopulation(10));
-//*/
-export InitPopulation
+/*  example of usage
+var a = new InitPopulation([0, 0, 0, 0, 0, 0, 0], "BINARY");
+console.log(a.getPopulation(10));
+*/
+module.exports = InitPopulation

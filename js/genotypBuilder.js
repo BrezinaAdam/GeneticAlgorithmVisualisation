@@ -81,7 +81,7 @@ class GenotypBuilder {
           if(minusFlag == true && genotyp[j-1] == 1)
             elements.push(-this.bin2dec(subgen));
           else
-            elements.push(-this.bin2dec(subgen));
+            elements.push(this.bin2dec(subgen));
 
           minusFlag = false;
           j += this.maxInt;
@@ -100,16 +100,10 @@ class GenotypBuilder {
     return elements;
   }
 }
-
+/*
 var a = new GenotypBuilder();
 var key = "-bb-i";
 console.log(a.getElements(key,[1,   1,    0,   1,   1, 1, 1, 0]));
 //console.log()
-
-/*
-"f"
-"-f"
-"b"
-"i"
-"-i"
 */
+module.exports = GenotypBuilder

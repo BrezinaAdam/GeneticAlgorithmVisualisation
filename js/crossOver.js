@@ -7,8 +7,8 @@ class CrossOver {
 
   /**
     This function  ...
-    @param {Array.<number>} parrent1
-    @param {Array.<number>} parrent2
+    @param {Array.<number>} parrent1 ...
+    @param {Array.<number>} parrent2 ...
     @returns {Array.Array.<number>}
   */
   getChilds(parrent1, parrent2){
@@ -36,8 +36,8 @@ class CrossOver {
 
   /**
     This function  ...
-    @param {Array.Array.<number>} pop
-    @returns {Array.Array.<number>}
+    @param {Array.Array.<number>} pop ...
+    @returns {Array.Array.<number>} ...
   */
   getNewGeneration(pop){
     var newGen = [];
@@ -56,8 +56,9 @@ class CrossOver {
   }
 }
 
-///*
+/*
 var a = new CrossOver();
 var pop = [[1, 0, 1, 1, 1, 1, 1],[1, 1, 1, 1, 0, 1, 1],[0, 1, 1, 1, 1, 1, 1],[1, 1, 1, 1, 1, 1, 0]];
 console.log(a.getNewGeneration(pop));
-//*/
+*/
+module.exports = CrossOver

@@ -24,3 +24,5 @@ class Selection {
     // something to do
   }
 }
+
+module.exports = Selection
