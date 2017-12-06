@@ -9,7 +9,7 @@
   <meta name="description" content="GenAlgVis">
   <meta name="author" content="Siemens">
 
-  <link rel="stylesheet" href="css/style.css?v=1.0">
+  <link rel="stylesheet" href="css/stylenew.css?v=1.0">
 
   <script type="text/javascript" src="js/d3.v4.min.js" charset="utf"></script>
 </head>
@@ -19,8 +19,8 @@
 
   <h2>Genetic Algorithm Visualisation</h2>
   <div class="w3-bar w3-black">
-    <button class="w3-bar-item w3-button" onclick="openCity('London')">Neural network</button>
-    <button class="w3-bar-item w3-button" onclick="openCity('Paris')">Genetic algorithm</button>
+    <button id="tab" onclick="openCity('London')">Neural network</button>
+    <button id="tab" onclick="openCity('Paris')">Genetic algorithm</button>
     <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
   </div>
 
@@ -125,9 +125,10 @@
 
 <!-- FOOTER -->
 <footer>
-  <button>Start</button>
-  <button>Stop</button>
-  <button>Reset</button>
-</footer>
+  <div id="footer">
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+  </div>
 
 </html>

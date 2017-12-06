@@ -1,0 +1,190 @@
+header{
+  background-color: #2A2A2A;
+  padding: 5px;
+  color: rgb(194, 191, 191);
+  text-align: center;
+}
+
+body{
+  background-color: #edf7b2;
+  margin: auto;
+}
+
+footer{
+  background-color: #2A2A2A;
+  position: fixed;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+#footer {
+  margin: 0 auto;
+  width: 67%;
+}
+
+button{
+  display:inline-block;
+  font-weight: bold;
+
+  height: 25px;
+  width: 170px;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 10px;
+
+  margin: 10px;
+  outline: none;
+}
+
+button#tab {
+  background-color: #87B6A7;
+  color: #2A2A2A;
+
+  font-weight: bold;
+  font-size: 18px;
+
+  border-radius: 0px;
+  margin: 0px;
+  padding: 0px;
+  width: 49.6%;
+}
+
+button#tab:hover {
+  background-color: rgba(42, 42, 42, 0.87);
+  color: #87B6A7;
+
+  -ms-transform: scale(1, 1.5); /* IE 9 */
+  -webkit-transform: scale(1, 1.5); /* Safari */
+  transform: scale(1, 1.5);
+
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+}
+
+button#start {
+  background-color: #E3F09B;
+  color: rgba(42, 42, 42, 0.87);
+  border: solid 2px white;
+}
+
+button#start:hover {
+  background-color: rgba(42, 42, 42, 0.87);
+  color: #d2ed3a;
+
+  -ms-transform: scale(1.2, 1.2); /* IE 9 */
+  -webkit-transform: scale(1.2, 1.2); /* Safari */
+  transform: scale(1.2, 1.2);
+
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+  border: solid 2px white;
+}
+
+button#stop {
+  background-color: #F79F79;
+  color: #2A2A2A;
+  border: solid 2px white;
+}
+
+button#stop:hover {
+  background-color: rgba(42, 42, 42, 0.87);
+  color: #F79F79;
+
+  -ms-transform: scale(1.2, 1.2); /* IE 9 */
+  -webkit-transform: scale(1.2, 1.2); /* Safari */
+  transform: scale(1.2, 1.2);
+
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+  border: solid 2px white;
+}
+
+button#reset{
+  background-color: #F7D08A;
+  color: #2A2A2A;
+  border: solid 2px white;
+}
+
+button#reset:hover {
+  background-color: rgba(42, 42, 42, 0.87);
+  color: #F7D08A;
+
+  -ms-transform: scale(1.2, 1.2); /* IE 9 */
+  -webkit-transform: scale(1.2, 1.2); /* Safari */
+  transform: scale(1.2, 1.2);
+
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+  border: solid 2px white;
+}
+
+button#reset:active, button#start:active, button#stop:active, button#tab:active {
+  background-color: rgba(156, 156, 156, 0.87);
+
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
+}
+
+
+button:active{
+  background-color: rgb(237, 235, 235);
+  color: rgba(2, 119, 241, 0.8);
+
+  -webkit-transition-duration: 0s; /* Safari */
+  transition-duration: 0s;
+}
+
+svg{
+  width: 300px;
+  height: 300px;
+  border: 1px solid #2A2A2A;
+  background-color: #eef2d8;
+}
+
+input{
+  background-color: #eef2d8;
+  border: 1px solid #2A2A2A;
+}
+
+.line
+{
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.line2
+{
+  fill: none;
+  stroke: green;
+  stroke-width: 2px;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+#synapse span{
+  float: left;
+  width: 30px;
+}
+
+#London{
+  min-height: 980px;
+}
+
+#London table{
+  margin-left: auto;
+  margin-right: auto;
+}
