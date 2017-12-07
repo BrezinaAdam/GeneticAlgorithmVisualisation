@@ -146,7 +146,7 @@ class NeuralNetwork
       }
       else
       {
-        var res = [this.layersStruct[last]];
+        let res = [this.layersStruct[last]];
 
         for (let i = 0; i < this.layersStruct[last]; i++)
         {
@@ -176,6 +176,8 @@ class NeuralNetwork
       }
     }
 }
+
+module.exports = NeuralNetwork;
 
 /*
 var net = new NeuralNetwork([1, 4, 1], (x) => { return x; });

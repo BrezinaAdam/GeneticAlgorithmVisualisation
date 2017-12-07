@@ -20,3 +20,5 @@ class Dataset
     return res;
   }
 }
+
+module.exports = Dataset;
