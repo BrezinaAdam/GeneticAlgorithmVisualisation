@@ -221,6 +221,28 @@ class NeuralNetwork
         return sum;
       }
     }
+
+    /**
+    method getTotalError counts total error for the whole Dataset
+    @param {Array} dataset defines the input dataset
+    @returns {number} specifies the overal error over the network
+    */
+    getTotalError(dataset)
+    {
+      if (typeof(dataset) != "object" || dataset.length != 2)
+      {
+        throw new Error("Invalid dataset!");
+      }
+      let total = 0;
+      for(let i = 0; i < dataset[0].length; i++)
+      {
+        setInput(dataset[0][i]);
+        feedForward();
+        total += getError(dataset[1][i]);
+      }
+      return total;
+    }
+
 }
 
 /**
