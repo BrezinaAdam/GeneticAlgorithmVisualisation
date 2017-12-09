@@ -2,6 +2,13 @@
 
 import Neuron from './js/singleNeuron'
 
+/**
+  Class NeuralNetwork
+  @param {!number} from defines first data sample
+  @param {!number} to defines last data sample
+  @param {!number} step defines differentiations between sampling points
+ */
+
 class NeuralNetwork
 {
     constructor(layers = [1, 5, 1], activation = (x) => { return 1 / (1 + Math.exp(-x)) })
@@ -14,6 +21,11 @@ class NeuralNetwork
       this.layers = [];
       this.generateNetwork();
     }
+
+    /**
+      method checkStruct checks whether layer is of type Object and doesn't have less than 2 layers (input and output layer)
+      @param {!Array} layers defines number of neurons in specific layer
+     */
 
     checkStruct(layers)
     {
@@ -30,6 +42,10 @@ class NeuralNetwork
         }
       }
     }
+
+    /**
+      method generateNetwork creates 2D array of neuron layers
+     */
 
     generateNetwork()
     {
@@ -51,6 +67,13 @@ class NeuralNetwork
       }
     }
 
+    /**
+      method setBias set a bias for a particular neuron in the network
+      @param {!number} neuron defines the neuron method is working with
+      @param {!number} layer defines the layer method is working with
+      @param {!number} bias sets a particular neuron in a paricular layer to specific value
+     */
+
     setBias(layer, neuron, bias)
     {
       if (!Number.isInteger(layer) || !Number.isInteger(neuron) || typeof(bias) != 'number')
@@ -66,6 +89,10 @@ class NeuralNetwork
       this.layers[layer][neuron].setBias(bias);
     }
 
+    /**
+      method setBiases sets biases for all of the neurons in the network
+      @param {!Array} biases defines biases for all neurons
+     */
     setBiases(biases)
     {
       if (typeof(biases) != 'object' || biases.length != this.layersStruct.reduce((a, b) => { return a + b; }))
@@ -84,6 +111,10 @@ class NeuralNetwork
       }
     }
 
+    /**
+      method setWeights sets weights for all of the neurons in the network
+      @param {!Array} weights defines weights for all neurons
+     */
     setWeights(weights)
     {
       let cnt = 0;
@@ -111,6 +142,11 @@ class NeuralNetwork
       }
     }
 
+    /**
+      method setInput sets the value for the neuron
+      @param {!number} input defines value for single neron
+      @param {!Array} input defines values for an array of neurons
+     */
     setInput(input)
     {
       if (typeof(input) == 'number')
@@ -131,6 +167,10 @@ class NeuralNetwork
       }
     }
 
+    /**
+      method feedForward counts values for all neurons in the network
+      @returns {Array.<number>}
+     */
     feedForward()
     {
       let last = this.layersStruct.length - 1;
@@ -157,6 +197,12 @@ class NeuralNetwork
       }
     }
 
+    /**
+      method getError counts error between evaluated and desired value
+      @param {number} desired defines value for single neron
+      @param {Array} desired defines values for an array of neurons
+      @returns {number} states for overal square error between evaluated and desired values
+     */
     getError(desired)
     {
       let last = this.layersStruct.length - 1;
@@ -170,13 +216,16 @@ class NeuralNetwork
         let sum = 0;
         for (let i = 0; i < this.layersStruct[last]; i++)
         {
-          sum += Math.pow(desired[i] - this.layers[last][i].getOutput());
+          sum += Math.pow(desired[i] - this.layers[last][i].getOutput(),2);
         }
         return sum;
       }
     }
 }
 
+/**
+NeuralNetwork is exposed as a module
+*/
 module.exports = NeuralNetwork;
 
 /*

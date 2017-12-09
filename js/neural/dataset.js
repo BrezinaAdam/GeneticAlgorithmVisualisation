@@ -1,5 +1,12 @@
 'using strict';
 
+/**
+  Static class Dataset creates training data for neural network
+  @param {!number} from defines first data sample
+  @param {!number} to defines last data sample
+  @param {!number} step defines differentiations between sampling points
+ */
+
 class Dataset
 {
   static generate(from, to, step)
