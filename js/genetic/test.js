@@ -1,9 +1,5 @@
 // here you can find basic usage of genetic algorithm
-import InitPopulation from './js/initPopulation'
-import CrossOver from './js/crossOver'
-import Mutation from './js/mutation'
-import Selection from './js/selection'
-import GenotypBuilder from './js/genotypBuilder'
+
 
 
 var crossOver = new CrossOver();

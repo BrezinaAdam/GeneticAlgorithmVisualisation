@@ -18,7 +18,7 @@ class InitPopulation {
     This function  ...
     @returns {Array.<number>}
   */
-  getGenotyp() {
+  getSubject() {
     this.genotyp = [this.length];
 
     if (this.type == "BINARY") {
@@ -49,7 +49,7 @@ class InitPopulation {
     var population = [size];
 
     for(var i = 0; i < size; i++){
-      population[i] = this.getGenotyp();
+      population[i] = this.getSubject();
     }
 
     return population;
