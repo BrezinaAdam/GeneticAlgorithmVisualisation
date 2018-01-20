@@ -18,30 +18,18 @@ var uscale = d3.scaleLinear()
  */
 function DrawGraphs(canvases, buff, dataset)
 {
-	canvases[0]
-		.selectAll("path")
-		.remove();
-
-	canvases[0].append("path")
-     		.data([buff[0]])
-      		.attr("class", "line2")
-      		.attr("d", line);
-
-	canvases[0].append("path")
-      		.data([dataset])
-      		.attr("class", "line")
-      		.attr("d", line);
-
-	for (i = 1; i < 7; i++)
+	// pre sigmoidu
+	// line2 kresli zelenou
+	canvases[0].selectAll("path").remove();
+	canvases[0].append("path").data([buff[0]]).attr("class", "line2").attr("d", line);
+	canvases[0].append("path").data([dataset]).attr("class", "line").attr("d", line);
+	
+  // pre ostatne grafy
+	// line kresli modrou
+	for (i = 1; i <= 6; i++)
 	{
-		canvases[i]
-			.selectAll("path")
-			.remove();
-
-		canvases[i].append("path")
-      		.data([buff[i]])
-      		.attr("class", "line")
-      		.attr("d", line);
+		canvases[i].selectAll("path").remove();
+		canvases[i].append("path").data([buff[i]]).attr("class", "line").attr("d", line);
 	}
 }
 

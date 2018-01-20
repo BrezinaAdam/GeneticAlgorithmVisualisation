@@ -1,0 +1,186 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>AI Visualisation</title>
+  <meta name="description" content="GenAlgVis">
+  <meta name="author" content="Siemens">
+
+  <link rel="stylesheet" href="css/stylenew.css?v=1.0">
+
+  <script type="text/javascript" src="js/d3.v4.min.js" charset="utf"></script>
+</head>
+
+<!-- HEADER -->
+<header>
+  <h2>Genetic Algorithm Visualisation</h2>
+  <div class="w3-bar w3-black">
+    <button id="tab" onclick="openCity('London')">Neural network</button>
+    <button id="tab" onclick="openCity('Paris')">Genetic algorithm</button>
+    <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
+  </div>
+</header>
+
+<!-- BODY -->
+<body>
+  <div id="London" class="w3-container city">
+
+    <table border="1">
+
+      <tr>
+        <td rowspan="2">
+          <!--graf neuronky-->
+          <svg class="lond"></svg>
+        </td>
+        <td >
+          <input type="button" onclick="startMagic();" value="start"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          grafiiik
+        </td>
+      </tr>
+
+    </table>
+    <p> </p>
+
+  </div>
+
+  <div id="Paris"  class="w3-container city" style="display:none">
+    <table border = "1">
+    <p> </p>
+      <tr>
+        <td rowspan="2">
+          vyzualizácia potomkov a rodičov GA
+        </td>
+        <td >
+          graf neuronky
+        </td>
+      </tr>
+      <tr>
+        <td>
+          sinusoida
+        </td>
+      </tr>
+
+    </table>
+    <p> </p>
+
+  </div>
+
+
+  <script>
+    function openCity(cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(cityName).style.display = "block";
+    }
+  </script>
+
+  <script type="text/javascript" src="./js/genetic/crossOver.js"></script>
+  <script type="text/javascript" src="./js/genetic/genotypBuilder.js"></script>
+  <script type="text/javascript" src="./js/genetic/initPopulation.js"></script>
+  <script type="text/javascript" src="./js/genetic/mutation.js"></script>
+  <script type="text/javascript" src="./js/genetic/selection.js"></script>
+  <script type="text/javascript" src="./js/neural/neuron.js"></script>
+  <script type="text/javascript" src="./js/neural/neuralNetwork.js"></script>
+  <script type="text/javascript" src="./js/neural/dataset.js"></script>
+  <script type="text/javascript" src="./js/genetic/geneticAlgoritm.js"></script>
+  <script type="text/javascript">
+    'use strict';
+
+    var WIDTH = 300;
+    var HEIGHT = 300;
+    var PADDING = 12;
+
+    var canvas = d3.select(".lond");
+    canvas.attr("width", WIDTH);
+    canvas.attr("height", HEIGHT);
+
+    var line = d3.line()
+    .x(function(d){ return (d[0] + 1)*150;})
+    .y(function(d){return HEIGHT-d[1]*250 - PADDING;});
+
+    var uscale = d3.scaleLinear()
+    .domain([0, 300])
+    .range([0, 300]);
+
+    function make_x_gridlines() {
+        return d3.axisBottom(uscale)
+            .ticks(5)
+    }
+
+    function make_y_gridlines() {
+        return d3.axisLeft(uscale)
+            .ticks(3)
+    }
+
+    canvas.append("g")
+    .attr("class", "grid")
+    .call(make_y_gridlines()
+    .tickSize(-300)
+    .tickFormat(""));
+
+    canvas.append("g")
+    .attr("class", "grid")
+    .attr("transform", "translate(0," + 300 + ")")
+    .call(make_x_gridlines()
+    .tickSize(-300)
+    .tickFormat(""));
+
+    function startMagic()
+    {
+      let genAlg = new GeneticAlgoritm();
+      let counter = 200;
+      executeGen();
+
+      function executeGen()
+      {
+        console.log("in");
+        setTimeout(function(){
+          genAlg.step();
+          let result = genAlg.getOutput();
+
+          let data1 = [], data2 = [];
+          for (let j = 0; j < result[0].length; j++)
+          {
+            data1.push([result[0][j], result[1][j]]);
+            data2.push([result[0][j], result[2][j]]);
+          }
+
+          canvas.selectAll("path").remove();
+          canvas.selectAll("text").remove();
+          canvas.append("text").attr("x", 0).attr("y", 20).text(counter);
+          canvas.append("path").data([data1]).attr("d", line).attr("stroke", "blue").attr("stroke-width", 2).attr("fill", "none");
+          canvas.append("path").data([data2]).attr("d", line).attr("stroke", "red").attr("stroke-width", 2).attr("fill", "none");
+
+          counter--;
+          if (counter > 0)
+          {
+            executeGen();
+          }
+
+        }, 200);
+      }
+    }
+  </script>
+
+</body>
+
+<!-- FOOTER -->
+<footer>
+  <div id="footer">
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+  </div>
+
+
+</html>

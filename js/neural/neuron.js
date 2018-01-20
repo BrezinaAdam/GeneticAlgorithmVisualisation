@@ -86,6 +86,11 @@ class Neuron
     return this.weights[index];
   }
 
+  getBias()
+  {
+    return this.bias;
+  }
+
   /**
   method getOutput returns the value of the neurons
   @returns {number} specifies the value of the output
@@ -121,4 +126,4 @@ class Neuron
 /**
 Neuron is exposed as a module
 */
-module.exports = Neuron;
+//module.exports = Neuron;

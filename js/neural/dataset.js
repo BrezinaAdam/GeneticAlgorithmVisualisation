@@ -29,7 +29,7 @@ class Dataset
     do
     {
       res[0].push(this.x_map(curr, from, to));
-      res[1].push(this.y_map(Math.sin(curr)));
+      res[1].push(this.y_map(Math.sin(curr)/3*2));
       //res[1].push(this.x_map(curr, from, to));
       curr += step;
     }
@@ -39,4 +39,4 @@ class Dataset
   }
 }
 
-module.exports = Dataset;
+//module.exports = Dataset;

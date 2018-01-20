@@ -117,4 +117,4 @@ var key = "-bb-i";
 console.log(a.getElements(key,[1,   1,    0,   1,   1, 1, 1, 0]));
 //console.log()
 */
-module.exports = GenotypBuilder
+//module.exports = GenotypBuilder

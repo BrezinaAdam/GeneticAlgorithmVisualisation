@@ -58,7 +58,7 @@ var trainSet = Dataset.generate(0, 2*Math.PI, 0.1);
 var neuralNetwork = new NeuralNetwork([1, 25, 1]);
 
 // 3. create Genotyp form
-var genBuilder = new GenotypBuilder(16,16);
+var genBuilder = new GenotypBuilder(16);
 
 let key = "";
 for(let i = 0; i < neuralNetwork.getNumOfWeights() + neuralNetwork.getNumOfBiases() - 1; i++)
@@ -69,8 +69,8 @@ for(let i = 0; i < neuralNetwork.getNumOfWeights() + neuralNetwork.getNumOfBiase
 var genPrototype = genBuilder.getGenotyp(key);
 
 // 4. Init new Population
-var type = "BINARY";
-var size = 1000; // size of Pop, must be even number
+var type = "INTEGER";
+var size = 100; // size of Pop, must be even number
 var popGenerator = new InitPopulation(genPrototype, type);
 var population = [popGenerator.getPopulation(size), []];
 
@@ -99,25 +99,31 @@ for (let i = 0; i < trainSet[0].length; i++)
 
 // main
 let newPop = [[], []];
-for (let i = 0; i < 200; i++)
+for (let i = 0; i < 500; i++)
 {
-  console.log((i/2).toString() + "%");
+  console.log((i/5).toString() + "%");
 
   let selection = new Selection();
   var numbers = genBuilder.getAllElements(key, population[0]);
 
-  if(i % 15 == 0){
-    let newHalf = [popGenerator.getPopulation(size),[]];
-    let newNumbers = genBuilder.getAllElements(key, newHalf[0]);
-    population[1] = calculateFitness(neuralNetwork, numbers, trainSet);
-    newHalf[1] = calculateFitness(neuralNetwork, newNumbers, trainSet);
-    population = getHalfPopulation(population, newHalf);
+  if(i % 20 == 0)
+  {
+    let newHalf = popGenerator.getPopulation(size / 5);
+    //let newNumbers = genBuilder.getAllElements(key, newHalf[0]);
+    //population[1] = calculateFitness(neuralNetwork, numbers, trainSet);
+    //newHalf[1] = calculateFitness(neuralNetwork, newNumbers, trainSet);
+    //population = getHalfPopulation(population, newHalf);
+    for (let j = 0; j < size / 5; j++)
+    {
+      population[0][Math.round(Math.random() * (size - 1))] = newHalf[j];
+    }
   }
 
+  numbers = genBuilder.getAllElements(key, population[0]);
   population[1] = calculateFitness(neuralNetwork, numbers, trainSet);
 
   newPop = [[], []];
-  for (let i = 0; i < population[0].length / 2; i++)
+  for (let j = 0; j < population[0].length / 2; j++)
   {
     let parents = selection.getSelectedParrents(population[0], population[1]);
     newPop[0].push(parents[0]);
@@ -129,7 +135,7 @@ for (let i = 0; i < 200; i++)
   newPop[0] = crossOver.getNewGeneration(newPop[0]);
 
   //mutacia
-  let mutator = new Mutation(20, 20);
+  let mutator = new Mutation(50, 20);
   newPop[0] = mutator.getMutatedPopulation(newPop[0], type);
 
   let newNumbs = genBuilder.getAllElements(key, newPop[0]);
@@ -154,40 +160,5 @@ for (let i = 0; i < trainSet[0].length; i++)
   console.log(neuralNetwork.feedForward());
 }
 
-/*
-var crossOver = new CrossOver();
-var genBuilder = new GenotypBuilder();
-var mutator = new Mutation(20,55);
-var selector = new Selection();
-// first create genotyp with key
-var key = "-i-i-i-i";   // 4 signed integers (-i)
-var type = "BINARY";
-var size = 16; // size of Pop, must be even number
-
-// create template genotyp with key for creating population
-var genPrototype = genBuilder.getGenotyp(key); // [a,b,c,d]
-
-// create population generator with prototype genotype
-var popGenerator = new InitPopulation(genPrototype, type);
-
-// create population with specific size
-var population = popGenerator.getPopulation(size)
-
-console.log("first population");
-for(var i = 0; i < size; i++)
-{
-  console.log(genBuilder.getElements(key, population[i]));
-}
-
-//create new generation
-var newPopulation = crossOver.getNewGeneration(population);
-
-// now mutate new getPopulation
-newPopulation = mutator.getMutatedPopulation(newPopulation, type);
-
-console.log("new population");
-for(var i = 0; i < size; i++)
-{
-  console.log(genBuilder.getElements(key, newPopulation[i]));
-}
-*/
+//console.log("--");
+//console.log(neuralNetwork.getWeights());
