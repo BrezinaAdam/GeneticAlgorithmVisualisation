@@ -9,6 +9,16 @@
 
 class Dataset
 {
+  static x_map(x, from, to)
+  {
+    return x / (to - from) * 2.0 - 1.0;
+  }
+
+  static y_map(y)
+  {
+    return (y + 1.0) / 2.0;
+  }
+
   static generate(from, to, step)
   {
     let res = [2];
@@ -18,8 +28,9 @@ class Dataset
     let curr = from;
     do
     {
-      res[0].push(curr);
-      res[1].push(Math.sin(curr));
+      res[0].push(this.x_map(curr, from, to));
+      res[1].push(this.y_map(Math.sin(curr)));
+      //res[1].push(this.x_map(curr, from, to));
       curr += step;
     }
     while (curr < to);

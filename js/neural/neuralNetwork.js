@@ -1,6 +1,6 @@
 'using strict';
 
-import Neuron from './js/singleNeuron'
+const Neuron = require('./neuron.js');
 
 /**
   Class NeuralNetwork
@@ -20,6 +20,51 @@ class NeuralNetwork
 
       this.layers = [];
       this.generateNetwork();
+    }
+
+    getNumOfWeights()
+    {
+      let cnt = 0;
+
+      for (let i = 1; i < this.layersStruct.length; i++)
+      {
+        cnt += this.layersStruct[i - 1] * this.layersStruct[i];
+      }
+
+      return cnt;
+    }
+
+    getNumOfBiases()
+    {
+      let cnt = 0;
+
+      for (let i = 0; i < this.layersStruct.length; i++)
+      {
+        cnt += this.layersStruct[i];
+      }
+
+      return cnt;
+    }
+
+    assignPopElement(pop, idx)
+    {
+      let numOfW = this.getNumOfWeights();
+      let numOfB = this.getNumOfBiases();
+
+      let weightsArray = [];
+      let biasesArray = [0];
+
+      for(let i = 0; i < numOfW; i++)
+      {
+        weightsArray.push(pop[idx][i] / 10000.0);
+      }
+      for(let i = 0; i < numOfB - 1; i++)
+      {
+        biasesArray.push(pop[idx][numOfW + i] / 10000.0);
+      }
+
+      this.setWeights(weightsArray);
+      this.setBiases(biasesArray);
     }
 
     /**
@@ -57,7 +102,8 @@ class NeuralNetwork
 
         for (let j = 0; j < this.layersStruct[i]; j++)
         {
-          this.layers[i][j] = new Neuron(this.activation);
+          this.layers[i][j] = new Neuron(i == 0 ? (x) => { return x; } : this.activation);
+          //this.layers[i][j] = new Neuron(this.activation);
 
           if (i > 0)
           {
@@ -142,6 +188,24 @@ class NeuralNetwork
       }
     }
 
+    getWeights()
+    {
+      let weights = [];
+
+      for (let i = 1; i < this.layersStruct.length; i++)
+      {
+        for (let j = 0; j < this.layersStruct[i]; j++)
+        {
+          for (let k = 0; k < this.layersStruct[i - 1]; k++)
+          {
+            weights.push(this.layers[i][j].getWeight(k));
+          }
+        }
+      }
+
+      return weights;
+    }
+
     /**
       method setInput sets the value for the neuron
       @param {!number} input defines value for single neron
@@ -209,14 +273,14 @@ class NeuralNetwork
 
       if (typeof(desired) == 'number')
       {
-        return Math.pow(desired - this.layers[last][0].getOutput());
+        return Math.pow(desired - this.layers[last][0].getOutput(), 4);
       }
       else if (typeof(desired) == 'object')
       {
         let sum = 0;
         for (let i = 0; i < this.layersStruct[last]; i++)
         {
-          sum += Math.pow(desired[i] - this.layers[last][i].getOutput(),2);
+          sum += Math.pow(desired[i] - this.layers[last][i].getOutput(), 4);
         }
         return sum;
       }
@@ -236,9 +300,9 @@ class NeuralNetwork
       let total = 0;
       for(let i = 0; i < dataset[0].length; i++)
       {
-        setInput(dataset[0][i]);
-        feedForward();
-        total += getError(dataset[1][i]);
+        this.setInput(dataset[0][i]);
+        this.feedForward();
+        total += this.getError(dataset[1][i]);
       }
       return total;
     }
@@ -249,11 +313,3 @@ class NeuralNetwork
 NeuralNetwork is exposed as a module
 */
 module.exports = NeuralNetwork;
-
-/*
-var net = new NeuralNetwork([1, 4, 1], (x) => { return x; });
-net.setBiases([0, 0, -1, -2, -3, 0]);
-net.setWeights([2, 2, 2, 2, -1, -1, -1, -1]);
-net.setInput(5);
-console.log(net.feedForward());
-*/

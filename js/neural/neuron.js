@@ -76,6 +76,16 @@ class Neuron
     this.weights[index] = value;
   }
 
+  getWeight(index)
+  {
+    if (index >= this.weights.length)
+    {
+      throw new Error('Invalid index of weight!');
+    }
+
+    return this.weights[index];
+  }
+
   /**
   method getOutput returns the value of the neurons
   @returns {number} specifies the value of the output

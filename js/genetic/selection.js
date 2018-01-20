@@ -18,9 +18,9 @@ class Selection {
     this.selected = [this.population.length];
 
     for(let i = 0; i < this.population.length; i = i + 2){
-      this.selected[i] = getOne();
+      this.selected[i] = this.getOne();
       do{
-        this.selected[i+1] = getOne();
+        this.selected[i+1] = this.getOne();
       }while (this.selected[i] == this.selected[i+1]);
     }
   }
@@ -30,7 +30,7 @@ class Selection {
     // something to do
   }
 
-  getSelectedParrents(pop, fitness, type){
+  getSelectedParrents(pop, fitness, type="ROULETTE"){
     this.population = pop;
     this.fitness = fitness;
     this.type = type;
