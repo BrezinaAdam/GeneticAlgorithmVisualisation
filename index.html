@@ -28,131 +28,13 @@
 <body>
 
   <div id="London" class="w3-container city">
+
     <table border="1">
 
       <tr>
         <td rowspan="2">
           <!--graf neuronky-->
           <svg class="lond"></svg>
-          <script>
-          //String.fromCharCode('A'.charCodeAt() + 1)\
-          /*
-          var graph = {
-            nodes:[
-            	{"id": "A", "group": 1},
-            	{"id": "B", "group": 2},
-            	{"id": "C", "group": 2},
-            	{"id": "D", "group": 2},
-            	{"id": "E", "group": 2},
-            	{"id": "F", "group": 3},
-            	{"id": "G", "group": 3},
-            	{"id": "H", "group": 3},
-            	{"id": "I", "group": 3}
-            ],
-              links:[
-              {"source": "A", "target": "B", "value": 1},
-              {"source": "A", "target": "C", "value": 3},
-              {"source": "A", "target": "D", "value": 1},
-              {"source": "A", "target": "E", "value": 4},
-              {"source": "A", "target": "F", "value": 5},
-              {"source": "A", "target": "G", "value": 1},
-              {"source": "A", "target": "H", "value": 2},
-              {"source": "A", "target": "I", "value": 1},
-              ]
-            };
-            */
-        var graph = {
-          nodes:[],
-          links:[]
-        };
-
-        let sizeNN = 7;
-        graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
-        graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
-        for(let i = 1; i < sizeNN-1; i++){
-            graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2})
-            graph.links.push({"source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": 1});
-            graph.links.push({"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": 3});
-        }
-
-        var svg = d3.select(".lond"),
-            width = +svg.attr("width") + 200,
-            height = +svg.attr("height") + 250;
-
-        var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-        var simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(60))
-            .force("charge", d3.forceManyBody())
-        		.force("x", d3.forceX(function(d){
-        			if(d.group === 2){
-        				return 0;
-        			} else if (d.group === 3){
-        		      return width/2;
-                } else {
-        				      return -width/2;
-                    }
-              }))
-            .force("y", d3.forceY(function(d){
-              return height/(sizeNN-2);
-            }))
-            .force("center", d3.forceCenter(width / 2+80, height / 2));
-
-        var link = svg.append("g")
-            .attr("class", "links")
-          .selectAll("line")
-          .data(graph.links)
-          .enter().append("line")
-            .attr("stroke-width", function(d) { return d.value; });
-
-        var node = svg.append("g")
-            .attr("class", "nodes")
-          .selectAll("circle")
-          .data(graph.nodes)
-          .enter().append("circle")
-            .attr("r", 8
-          )
-            .attr("fill", function(d) { return color(d.group); })
-            .call(d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
-
-        node.append("title").text(function(d) { return d.id; });
-
-        simulation.nodes(graph.nodes).on("tick", ticked);
-
-        simulation.force("link").links(graph.links);
-
-        function ticked() {
-          link
-              .attr("x1", function(d) { return d.source.x; })
-              .attr("y1", function(d) { return d.source.y; })
-              .attr("x2", function(d) { return d.target.x; })
-              .attr("y2", function(d) { return d.target.y; });
-          node
-              .attr("cx", function(d) { return d.x; })
-              .attr("cy", function(d) { return d.y; });
-        }
-
-        function dragstarted(d) {
-          if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(d) {
-          d.fx = d3.event.x;
-          d.fy = d3.event.y;
-        }
-
-        function dragended(d) {
-          if (!d3.event.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
-        }
-        </script>
-
 
         </td>
         <td >
@@ -164,20 +46,113 @@
           grafiiik
         </td>
       </tr>
+    </div>
 
-    </table>
-    <p> </p>
+  </table>
+  <script>
+  var graph = {
+    nodes:[],
+    links:[]
+  };
 
-    <script type="text/javascript" src="js/neuron.js"></script>
-    <script type="text/javascript" src="js/handlers.js"></script>
-    <script type="text/javascript" src="js/makedataset.js"></script>
-    <script type="text/javascript" src="js/visualization.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-  </div>
+  let sizeNN = 15;
+  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
+  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
+  for(let i = 1; i < sizeNN-1; i++){
+    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2})
+    graph.links.push({"source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": 1});
+    graph.links.push({"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": 3});
+  }
+
+  var svg = d3.select(".lond"),
+  width = 500,
+  height = 400;
+
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+  var simulation = d3.forceSimulation()
+  .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(150))
+  .force("charge", d3.forceManyBody())
+  .force("x", d3.forceX(function(d){
+    if(d.group === 2){
+      return 0;
+    } else if (d.group === 3){
+      return width/2;
+    } else {
+      return -width/2;
+    }
+  }))
+  .force("y", d3.forceY(function(d){
+    if(d.group === 2){
+      return (d.id.charCodeAt()-64)*20-20;
+    }
+    else {
+      return height/2;
+    }
+    //return 150;
+  }))
+  .force("center", d3.forceCenter(600, 250));
+
+  var link = svg.append("g")
+  .attr("class", "links")
+  .selectAll("line")
+  .data(graph.links)
+  .enter().append("line")
+  .attr("stroke-width", function(d) { return d.value; });
+
+  var node = svg.append("g")
+  .attr("class", "nodes")
+  .selectAll("circle")
+  .data(graph.nodes)
+  .enter().append("circle")
+  .attr("r", 8)
+  .attr("fill", function(d) { return color(d.group); })
+  .call(d3.drag()
+  .on("start", dragstarted)
+  .on("drag", dragged)
+  .on("end", dragended));
+
+  node.append("title").text(function(d) { return d.id; });
+
+  simulation.nodes(graph.nodes).on("tick", ticked);
+
+  simulation.force("link").links(graph.links);
+
+  function ticked() {
+    link
+    .attr("x1", function(d) { return d.source.x; })
+    .attr("y1", function(d) { return d.source.y; })
+    .attr("x2", function(d) { return d.target.x; })
+    .attr("y2", function(d) { return d.target.y; });
+    node
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; });
+  }
+
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
+
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+  </script>
+
+
+
 
   <div id="Paris"  class="w3-container city" style="display:none">
     <table border = "1">
-    <p> </p>
+      <p> </p>
       <tr>
         <td rowspan="2">
           vyzualizácia potomkov a rodičov GA
@@ -193,21 +168,21 @@
       </tr>
 
     </table>
-    <p> </p>
+
 
   </div>
 
 
   <script>
-    function openCity(cityName) {
-      var i;
-      var x = document.getElementsByClassName("city");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      document.getElementById(cityName).style.display = "block";
+  function openCity(cityName) {
+    var i;
+    var x = document.getElementsByClassName("city");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
     }
-  </script>
+    document.getElementById(cityName).style.display = "block";
+  }
+</script>
 
 </body>
 
@@ -220,4 +195,4 @@
   </div>
 
 
-</html>
+  </html>
