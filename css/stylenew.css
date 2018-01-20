@@ -42,7 +42,7 @@ button{
 }
 
 button#tab {
-  background-color: #87B6A7;
+  background-color: #6497b1;
   color: #2A2A2A;
 
   font-weight: bold;
@@ -56,7 +56,7 @@ button#tab {
 
 button#tab:hover {
   background-color: rgba(42, 42, 42, 0.87);
-  color: #87B6A7;
+  color: #6497b1;
 
   -ms-transform: scale(1, 1.5); /* IE 9 */
   -webkit-transform: scale(1, 1.5); /* Safari */
@@ -139,52 +139,36 @@ button:active{
   transition-duration: 0s;
 }
 
-svg{
-  width: 300px;
-  height: 300px;
-  border: 1px solid #2A2A2A;
-  background-color: #eef2d8;
-}
-
 input{
   background-color: #eef2d8;
   border: 1px solid #2A2A2A;
 }
 
-.line
-{
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
-
-.line2
-{
-  fill: none;
-  stroke: green;
-  stroke-width: 2px;
-}
-
-.grid line {
-  stroke: lightgrey;
-  stroke-opacity: 0.7;
-  shape-rendering: crispEdges;
-}
-
-.grid path {
-  stroke-width: 0;
-}
-
-#synapse span{
-  float: left;
-  width: 30px;
+svg{
+  border: 1px solid #2A2A2A;
+  background-color: rgba(255, 250, 244, 1)
 }
 
 #London{
-  min-height: 980px;
+    height: 80%;
 }
 
-#London table{
+#London table, #Paris table{
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  padding: 0px;
+
+}
+#London table td{
+  padding: 0px;
+}
+line {
+  stroke: gray;
+  stroke-opacity: 0.7;
+}
+
+circle {
+  stroke: rgba(128, 128, 128, 0.71);
+  stroke-width: 2.2px;
 }

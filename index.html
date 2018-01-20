@@ -16,110 +16,217 @@
 
 <!-- HEADER -->
 <header>
-
   <h2>Genetic Algorithm Visualisation</h2>
   <div class="w3-bar w3-black">
     <button id="tab" onclick="openCity('London')">Neural network</button>
     <button id="tab" onclick="openCity('Paris')">Genetic algorithm</button>
     <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
   </div>
-
 </header>
 
 <!-- BODY -->
-
 <body>
 
   <div id="London" class="w3-container city">
-    <table>
+
+    <table border="1">
       <tr>
-        <td>
-          <svg class="canvas2"></svg>
+        <td rowspan="2">
+          <!--graf neuronky-->
+          <svg class="lond"></svg>
+
         </td>
-        <td>
-          <svg class="canvas5"></svg>
-        </td>
-        <td>
-          <svg class="canvas1"></svg>
-        </td>
-        <td>
-          <div id="synapse">
-            <table>
-              <tr>
-                <td valign="top">
-                  <span>w1: </span><input type="text" /><br/>
-                  <span>b1: </span><input type="text" /><br/>
-                  <span>w2: </span><input type="text" /><br/>
-                  <span>b2: </span><input type="text" /><br/>
-                  <span>w3: </span><input type="text" /><br/>
-                  <span>b3: </span><input type="text" /><br/>
-                  <span>w4: </span><input type="text" /><br/>
-                  <span>b4: </span><input type="text" /><br/>
-                  <span>w5: </span><input type="text" /><br/>
-                  <span>b5: </span><input type="text" />
-                </td>
-                <td valign="top">
-                  <span>w6: </span><input type="text" /><br/>
-                  <span>w7: </span><input type="text" /><br/>
-                  <span>w8: </span><input type="text" /><br/>
-                  <span>w9: </span><input type="text" /><br/>
-                  <span>w10: </span><input type="text" /><br/>
-                  <span>b6: </span><input type="text" />
-                </td>
-              </tr>
-            </table>
-          </div>
-          <p id="err">Square error: </p>
+        <td >
+          grafik
         </td>
       </tr>
       <tr>
         <td>
-          <svg class="canvas3"></svg>
-        </td>
-        <td>
-          <svg class="canvas6"></svg>
-        </td>
-        <td colspan="2" rowspan="2">
-          <img src="img/net.png" id="gui">
+          grafiiik
         </td>
       </tr>
-      <tr>
-        <td>
-          <svg class="canvas4"></svg>
-        </td>
-        <td>
-          <svg class="canvas7"></svg>
-        </td>
-      </tr>
-    </table>
-
-    <script type="text/javascript" src="js/neuron.js"></script>
-    <script type="text/javascript" src="js/handlers.js"></script>
-    <script type="text/javascript" src="js/makedataset.js"></script>
-    <script type="text/javascript" src="js/visualization.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-  </div>
-
-  <div id="Paris" class="w3-container city" style="display:none">
-    <!--<h2>Paris</h2>
-    <p>Paris is the capital of France.</p>-->
-  </div>
-
-  <div id="Tokyo" class="w3-container city" style="display:none">
-    <h2>Tokyo</h2>
-    <p>Tokyo is the capital of Japan.</p>
-  </div>
+    </div>
+  </table>
 
   <script>
-    function openCity(cityName) {
-      var i;
-      var x = document.getElementsByClassName("city");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      document.getElementById(cityName).style.display = "block";
+  var graph = {
+    nodes:[],
+    links:[]
+  };
+
+  let sizeNN = 12;
+  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
+  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
+  for(let i = 1; i < sizeNN-1; i++){
+    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2})
+    graph.links.push({"id": ('w'+i), "source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": Math.random()*3.5+2.5});
+    graph.links.push({"id": ('w'+(i+sizeNN-2)),"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": Math.random()*3.5+2.5});
+  }
+
+  var width = 800;
+  var height = 550;
+  var svgContainer = d3.select(".lond");
+  svgContainer.attr("width", width);
+  svgContainer.attr("height", height);
+
+  var circles = svgContainer.selectAll("circle")
+  .data(graph.nodes)
+  .enter()
+  .append("circle")
+  .attr("id", function(d){return d.id})
+  .attr("cx", function (d) {
+    if(d.group === 1){
+      return width/2 - width/3;
+    }else if(d.group === 2){
+      return width/2;
     }
+    else {
+      return width/2 + width/3;
+    }
+
+  })
+  .attr("cy", function (d) {
+    if(d.id === "A" || d.id === String.fromCharCode('A'.charCodeAt() + sizeNN - 1)){
+      return height/2;
+    }
+    else
+    {
+      return 5 + (height-40)/(sizeNN-2) * (d.id.charCodeAt()-65);
+    }
+  })
+  .attr("r", function (d) {
+    if(d.id === "A"){
+      return 15;
+    }
+    else if(d.id === String.fromCharCode('A'.charCodeAt() + sizeNN - 1))
+    {
+      return 18;
+    }
+    else {
+      return 12;
+    }
+  })
+  .style("fill", function(d) {
+    if(d.id === "A"){
+      return "#6497b1";
+    }
+    else if(d.id === String.fromCharCode('A'.charCodeAt() + sizeNN - 1))
+    {
+      return "#005b96";
+    }
+    else {
+      return "orange";
+    }
+  })
+  .call(d3.drag()
+  .on("start", dragstarted));
+
+  var line = svgContainer.selectAll("line")
+  .data(graph.links)
+  .enter().append("line")
+  .attr("id", function(d){return d.id})
+  .attr("x1", function(d){
+    let xx1 = d3.selectAll("circle[id='"+d.source+"']").attr("cx");
+    let yy1 = d3.selectAll("circle[id='"+d.source+"']").attr("cy");
+    let xx2 = d3.selectAll("circle[id='"+d.target+"']").attr("cx");
+    let yy2 = d3.selectAll("circle[id='"+d.target+"']").attr("cy");
+    let r = parseInt(d3.selectAll("circle[id='"+d.source+"']").attr("r"))+4;
+    //let r = 20;
+
+    let k = (xx2-xx1) / (yy2-yy1);
+    let newx = Math.sqrt(r*r/(1+1/(k*k)));
+    let newy = newx/k;
+    return parseInt(d3.selectAll("circle[id='"+d.source+"']").attr("cx"))+newx;
+
+  })
+  .attr("y1", function(d){
+    let xx1 = d3.selectAll("circle[id='"+d.source+"']").attr("cx");
+    let yy1 = d3.selectAll("circle[id='"+d.source+"']").attr("cy");
+    let xx2 = d3.selectAll("circle[id='"+d.target+"']").attr("cx");
+    let yy2 = d3.selectAll("circle[id='"+d.target+"']").attr("cy");
+    let r = parseInt(d3.selectAll("circle[id='"+d.source+"']").attr("r"))+4;
+    //let r = 20;
+
+    let k = (xx2-xx1) / (yy2-yy1);
+    let newx = Math.sqrt(r*r/(1+1/(k*k)));
+    let newy = newx/k;
+    return parseInt(d3.selectAll("circle[id='"+d.source+"']").attr("cy"))+newy;
+  })
+  .attr("x2", function(d){
+    let xx1 = d3.selectAll("circle[id='"+d.source+"']").attr("cx");
+    let yy1 = d3.selectAll("circle[id='"+d.source+"']").attr("cy");
+    let xx2 = d3.selectAll("circle[id='"+d.target+"']").attr("cx");
+    let yy2 = d3.selectAll("circle[id='"+d.target+"']").attr("cy");
+    let r = parseInt(d3.selectAll("circle[id='"+d.target+"']").attr("r"))+4;
+    //let r = 21;
+
+    let k = (xx2-xx1) / (yy2-yy1);
+    let newx = Math.sqrt(r*r/(1+1/(k*k)));
+    let newy = newx/k;
+
+    return parseInt(d3.selectAll("circle[id='"+d.target+"']").attr("cx")) - newx;
+  })
+  .attr("y2", function(d){
+    let xx1 = d3.selectAll("circle[id='"+d.source+"']").attr("cx");
+    let yy1 = d3.selectAll("circle[id='"+d.source+"']").attr("cy");
+    let xx2 = d3.selectAll("circle[id='"+d.target+"']").attr("cx");
+    let yy2 = d3.selectAll("circle[id='"+d.target+"']").attr("cy");
+    let r = parseInt(d3.selectAll("circle[id='"+d.target+"']").attr("r"))+4;
+    //let r = 20;
+
+    let k = (xx2-xx1) / (yy2-yy1);
+    let newx = Math.sqrt(r*r/(1+1/(k*k)));
+    let newy = newx/k;
+    return parseInt(d3.selectAll("circle[id='"+d.target+"']").attr("cy")) - newy;
+  })
+  .attr('stroke-width', function(d) {
+    return d.value;
+  })
+  .call(d3.drag()
+  .on("start", dragstarted));
+
+  function dragstarted(d) {
+    alert(d.id);
+  }
+
   </script>
+
+
+
+
+  <div id="Paris"  class="w3-container city" style="display:none">
+    <table border = "1">
+      <p> </p>
+      <tr>
+        <td rowspan="2">
+          vyzualizácia potomkov a rodičov GA
+        </td>
+        <td >
+          graf neuronky
+        </td>
+      </tr>
+      <tr>
+        <td>
+          sinusoida
+        </td>
+      </tr>
+
+    </table>
+
+
+  </div>
+
+
+  <script>
+  function openCity(cityName) {
+    var i;
+    var x = document.getElementsByClassName("city");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    document.getElementById(cityName).style.display = "block";
+  }
+</script>
 
 </body>
 
@@ -131,4 +238,5 @@
     <button id="reset">Reset</button>
   </div>
 
-</html>
+
+  </html>
