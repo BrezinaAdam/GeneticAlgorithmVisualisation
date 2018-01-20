@@ -42,7 +42,7 @@ canvas.append("g")
 
 function startMagic()
 {
-  let genAlg = new GeneticAlgoritm();
+  let genAlg = new GeneticAlgoritm(sizeNN-2);
   let counter = 200;
   executeGen();
 
@@ -67,14 +67,15 @@ function startMagic()
       canvas.append("path").data([data2]).attr("d", line).attr("stroke", "red").attr("stroke-width", 2).attr("fill", "none");
 
       let weights = genAlg.getWeights();
-      d3.selectAll("line[id='w"+3+"']")
-      .attr('stroke-width', function(d) {
-        return Math.abs(weights[3]);
-      })
-      .attr("stroke", function(d){
-        return d.color = (weights[3] > 0 ? "blue" : "red");
-      });
-
+      for(let i = 0; i < weights.length; i++){
+        d3.selectAll("line[id='w"+(i+1)+"']")
+        .attr('stroke-width', function(d) {
+          return Math.abs(weights[i]);
+        })
+        .attr("stroke", function(d){
+          return d.color = (weights[i] > 0 ? "rgb(230, 145, 106)" : "rgb(52, 98, 128)");
+        });
+      }
       counter--;
       if (counter > 0)
       {

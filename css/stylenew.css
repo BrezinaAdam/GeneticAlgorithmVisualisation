@@ -168,7 +168,6 @@ svg{
 }
 
 line {
-  stroke: gray;
   stroke-opacity: 0.7;
 }
 
@@ -188,14 +187,7 @@ line {
 #London table td{
   padding: 0px;
 }
-.links line {
-  stroke-opacity: 0.6;
-}
 
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.6px;
-}
 
 line:hover {
   stroke: black;

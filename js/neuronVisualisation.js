@@ -3,7 +3,6 @@ var graph = {
   links:[]
 };
 
-let sizeNN = 12;
 graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
 graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
 for(let i = 1; i < sizeNN-1; i++){
@@ -58,14 +57,14 @@ var circles = svgContainer.selectAll("circle")
 })
 .style("fill", function(d) {
   if(d.id === "A"){
-    return "#6497b1";
+    return "#a0df6e";
   }
   else if(d.id === String.fromCharCode('A'.charCodeAt() + sizeNN - 1))
   {
-    return "#005b96";
+    return "#1b84c8";
   }
   else {
-    return "orange";
+    return "rgb(255, 214, 41)";
   }
 })
 .call(d3.drag()
@@ -132,6 +131,7 @@ var line = svgContainer.selectAll("line")
 .attr('stroke-width', function(d) {
   return d.value;
 })
+.attr('stroke',"gray")
 .call(d3.drag()
 .on("start", dragstarted));
 
