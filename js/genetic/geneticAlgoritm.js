@@ -40,21 +40,47 @@ class GeneticAlgoritm {
     this.replProb = repl;
   }
 
-  calculateFitness(){
+  calculateFitness(pop){
+    let dataset = Dataset.generate(0,2*Math.PI,0.01);
+    let fit = [];
 
+    let error = 0;
+
+    for(let i = 0; i < pop.size; i++)
+    {
+        let weights = pop[i].subarray(0, pop.length / 2);
+        let biases = pop[i].subarray(pop.length / 2 + 1, pop.length - 1);
+
+        biases = biases.unshift(0);
+
+        this.NeNe.setWeights(weights);
+        this.NeNe.setBiases(biases);
+
+        error = this.NeNe.getTotalError(dataset);
+        if(error == 0){
+          fit.push(10000000);
+        }
+        else {
+          fit.push(1/ error);
+        }
+    }
   }
 
-  getHalfPopulation(){
+  getHalfPopulation(pop, newPop){
     
   }
 
   step(){
     // ohodnotit
-    this.calculateFitness();
+    this.fitness = this.calculateFitness(this.population);
+
+    // roulette
+    let selector = new Selection();
+    let pop = selector.getSelectedParrents(this.population, this.fitness);
 
     //krizenie
     let crossOver = new CrossOver();
-    this.newPopulation = crossOver.getNewGeneration(this.population);
+    this.newPopulation = crossOver.getNewGeneration(pop);
 
     //mutacia
     let mutator = new Mutation(this.mutProb, this.replProb);
@@ -64,6 +90,7 @@ class GeneticAlgoritm {
     //something to do
 
     //vyberem najlepsich z rodicov a deti
+    this.population = getHalfPopulation(this.population, this.newPopulation);
   }
 
 

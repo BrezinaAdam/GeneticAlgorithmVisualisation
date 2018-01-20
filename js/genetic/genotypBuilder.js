@@ -43,6 +43,17 @@ class GenotypBuilder {
     return sum;
   }
 
+  getAllElements(key, allGenotype)
+  {
+    var numbers = [];
+    for (let i = 0; i < allGenotype.length; i++)
+    {
+      numbers.push(this.getElements(key, allGenotype[i]));
+    }
+
+    return numbers;
+  }
+
   getElements(key, genotyp){
     var i = 0;    // key position
     var j = 0;    // genotyp position
