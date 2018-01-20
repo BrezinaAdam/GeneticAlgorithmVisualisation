@@ -146,13 +146,6 @@ input{
 }
 
 svg{
-
-
-  border: 1px solid #2A2A2A;
-  background-color: #eef2d8;
-}
-
-svg{
   border: 1px solid #2A2A2A;
   background-color: rgba(255, 250, 244, 1)
 }
@@ -196,13 +189,13 @@ line {
   padding: 0px;
 }
 .links line {
-  stroke: #999;
   stroke-opacity: 0.6;
 }
 
 .nodes circle {
   stroke: #fff;
   stroke-width: 1.6px;
+}
 
 line:hover {
   stroke: black;
@@ -217,5 +210,4 @@ circle {
 circle:hover {
   stroke: black;
   stroke-width: 2.5px;
-
 }
