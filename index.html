@@ -56,10 +56,10 @@
   };
 
   let sizeNN = 15;
-  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
-  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
+  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1, "diameter": 16}) //input neuron
+  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3, "diameter": 18}) //output neuron
   for(let i = 1; i < sizeNN-1; i++){
-    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2})
+    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2, "diameter": 12}) //hidden layer neurons
     graph.links.push({"source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": 1});
     graph.links.push({"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": 3});
   }
@@ -105,7 +105,7 @@
   .selectAll("circle")
   .data(graph.nodes)
   .enter().append("circle")
-  .attr("r", 8)
+  .attr("r", function(d) { return d.diameter; })
   .attr("fill", function(d) { return color(d.group); })
   .call(d3.drag()
   .on("start", dragstarted)
