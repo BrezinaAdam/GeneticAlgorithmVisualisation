@@ -61,4 +61,4 @@ class InitPopulation {
 var a = new InitPopulation([0, 0, 0, 0, 0, 0, 0], "BINARY");
 console.log(a.getPopulation(10));
 */
-module.exports = InitPopulation
+//module.exports = InitPopulation

@@ -61,4 +61,4 @@ var a = new CrossOver();
 var pop = [[1, 0, 1, 1, 1, 1, 1],[1, 1, 1, 1, 0, 1, 1],[0, 1, 1, 1, 1, 1, 1],[1, 1, 1, 1, 1, 1, 0]];
 console.log(a.getNewGeneration(pop));
 */
-module.exports = CrossOver
+//module.exports = CrossOver
