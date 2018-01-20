@@ -36,7 +36,7 @@
           <svg class="lond"></svg>
 
         </td>
-        <td >
+        <td>
           grafik
         </td>
       </tr>
@@ -63,9 +63,10 @@
     graph.links.push({"id": ('w'+(i+sizeNN-2)),"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": Math.random()*3.5+2.5});
   }
 
+  var svgContainer = d3.select(".lond");
   var width = 800;
   var height = 550;
-  var svgContainer = d3.select(".lond");
+
   svgContainer.attr("width", width);
   svgContainer.attr("height", height);
 
