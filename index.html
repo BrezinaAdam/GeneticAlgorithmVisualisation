@@ -16,82 +16,140 @@
 
 <!-- HEADER -->
 <header>
-
   <h2>Genetic Algorithm Visualisation</h2>
   <div class="w3-bar w3-black">
     <button id="tab" onclick="openCity('London')">Neural network</button>
     <button id="tab" onclick="openCity('Paris')">Genetic algorithm</button>
     <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
   </div>
-
 </header>
 
 <!-- BODY -->
-
 <body>
 
   <div id="London" class="w3-container city">
-    <table>
+    <p> </p>
+    <svg class="lond"></svg>
+    <table border="1">
+
       <tr>
-        <td>
-          <svg class="canvas2"></svg>
+        <td rowspan="2">
+          <!--graf neuronky-->
+
+          <script>
+          var graph = {
+            nodes:[
+            	{"id": "A", "group": 1},
+            	{"id": "B", "group": 2},
+            	{"id": "C", "group": 2},
+            	{"id": "D", "group": 2},
+            	{"id": "E", "group": 2},
+            	{"id": "F", "group": 3},
+            	{"id": "G", "group": 3},
+            	{"id": "H", "group": 3},
+            	{"id": "I", "group": 3}
+            ],
+              links:[
+              {"source": "A", "target": "B", "value": 1},
+              {"source": "A", "target": "C", "value": 3},
+              {"source": "A", "target": "D", "value": 1},
+              {"source": "A", "target": "E", "value": 4},
+              {"source": "A", "target": "F", "value": 5},
+              {"source": "A", "target": "G", "value": 1},
+              {"source": "A", "target": "H", "value": 2},
+              {"source": "A", "target": "I", "value": 1},
+              ]
+            };
+
+        var svg = d3.select(".lond"),
+            width = +svg.attr("width") + 100,
+            height = +svg.attr("height") + 150;
+
+        var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+        var simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(100))
+            .force("charge", d3.forceManyBody())
+        		.force("x", d3.forceX(function(d){
+        			if(d.group === 2){
+        				return -4*width/3;
+        			} else if (d.group === 3){
+        		      return 2*width/3;
+                } else {
+        				      return width/2;
+                    }
+              }))
+            .force("y", d3.forceY(height/2))
+            .force("center", d3.forceCenter(width / 2+80, height / 2));
+
+        var link = svg.append("g")
+            .attr("class", "links")
+          .selectAll("line")
+          .data(graph.links)
+          .enter().append("line")
+            .attr("stroke-width", function(d) { return d.value; });
+
+        var node = svg.append("g")
+            .attr("class", "nodes")
+          .selectAll("circle")
+          .data(graph.nodes)
+          .enter().append("circle")
+            .attr("r", 8)
+            .attr("fill", function(d) { return color(d.group); })
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("title").text(function(d) { return d.id; });
+
+        simulation.nodes(graph.nodes).on("tick", ticked);
+
+        simulation.force("link").links(graph.links);
+
+        function ticked() {
+          link
+              .attr("x1", function(d) { return d.source.x; })
+              .attr("y1", function(d) { return d.source.y; })
+              .attr("x2", function(d) { return d.target.x; })
+              .attr("y2", function(d) { return d.target.y; });
+          node
+              .attr("cx", function(d) { return d.x; })
+              .attr("cy", function(d) { return d.y; });
+        }
+
+        function dragstarted(d) {
+          if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(d) {
+          d.fx = d3.event.x;
+          d.fy = d3.event.y;
+        }
+
+        function dragended(d) {
+          if (!d3.event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        </script>
+
+
         </td>
-        <td>
-          <svg class="canvas5"></svg>
-        </td>
-        <td>
-          <svg class="canvas1"></svg>
-        </td>
-        <td>
-          <div id="synapse">
-            <table>
-              <tr>
-                <td valign="top">
-                  <span>w1: </span><input type="text" /><br/>
-                  <span>b1: </span><input type="text" /><br/>
-                  <span>w2: </span><input type="text" /><br/>
-                  <span>b2: </span><input type="text" /><br/>
-                  <span>w3: </span><input type="text" /><br/>
-                  <span>b3: </span><input type="text" /><br/>
-                  <span>w4: </span><input type="text" /><br/>
-                  <span>b4: </span><input type="text" /><br/>
-                  <span>w5: </span><input type="text" /><br/>
-                  <span>b5: </span><input type="text" />
-                </td>
-                <td valign="top">
-                  <span>w6: </span><input type="text" /><br/>
-                  <span>w7: </span><input type="text" /><br/>
-                  <span>w8: </span><input type="text" /><br/>
-                  <span>w9: </span><input type="text" /><br/>
-                  <span>w10: </span><input type="text" /><br/>
-                  <span>b6: </span><input type="text" />
-                </td>
-              </tr>
-            </table>
-          </div>
-          <p id="err">Square error: </p>
+        <td >
+          grafik
         </td>
       </tr>
       <tr>
         <td>
-          <svg class="canvas3"></svg>
-        </td>
-        <td>
-          <svg class="canvas6"></svg>
-        </td>
-        <td colspan="2" rowspan="2">
-          <img src="img/net.png" id="gui">
+          grafiiik
         </td>
       </tr>
-      <tr>
-        <td>
-          <svg class="canvas4"></svg>
-        </td>
-        <td>
-          <svg class="canvas7"></svg>
-        </td>
-      </tr>
+
     </table>
+    <p> </p>
 
     <script type="text/javascript" src="js/neuron.js"></script>
     <script type="text/javascript" src="js/handlers.js"></script>
@@ -100,15 +158,28 @@
     <script type="text/javascript" src="js/main.js"></script>
   </div>
 
-  <div id="Paris" class="w3-container city" style="display:none">
-    <!--<h2>Paris</h2>
-    <p>Paris is the capital of France.</p>-->
+  <div id="Paris"  class="w3-container city" style="display:none">
+    <table border = "1">
+    <p> </p>
+      <tr>
+        <td rowspan="2">
+          vyzualizácia potomkov a rodičov GA
+        </td>
+        <td >
+          graf neuronky
+        </td>
+      </tr>
+      <tr>
+        <td>
+          sinusoida
+        </td>
+      </tr>
+
+    </table>
+    <p> </p>
+
   </div>
 
-  <div id="Tokyo" class="w3-container city" style="display:none">
-    <h2>Tokyo</h2>
-    <p>Tokyo is the capital of Japan.</p>
-  </div>
 
   <script>
     function openCity(cityName) {
@@ -130,5 +201,6 @@
     <button id="stop">Stop</button>
     <button id="reset">Reset</button>
   </div>
+
 
 </html>
