@@ -33,7 +33,7 @@
       <tr>
         <td rowspan="2">
           <!--graf neuronky-->
-          <svg class="lond"></svg>
+          <svg class="neuralNetwork"></svg>
 
         </td>
         <td>
@@ -63,7 +63,7 @@
     graph.links.push({"id": ('w'+(i+sizeNN-2)),"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": Math.random()*3.5+2.5});
   }
 
-  var svgContainer = d3.select(".lond");
+  var svgContainer = d3.select(".neuralNetwork");
   var width = 800;
   var height = 550;
 
