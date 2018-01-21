@@ -89,24 +89,83 @@ var stateGA = 0;
   <script src="./js/geneticVisualisation.js"></script>
 
   <script>
-  function openCity(cityName) {
-    var i;
-    var x = document.getElementsByClassName("city");
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
+    function openCity(cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(cityName).style.display = "block";
     }
-    document.getElementById(cityName).style.display = "block";
-  }
-  drawNN(".neuralNetwork", 800, 610);
-  drawNN(".neuralNetworkmini", 380,270);
-</script>
+
+    drawNN(".neuralNetwork", 800, 610);
+    drawNN(".neuralNetworkmini", 380,270);
+
+    function acceptModal()
+    {
+      document.getElementById("myModal").style.display ="none";
+      let nn_size = parseInt(document.getElementById("nn_size").value);
+      let nn_data = document.getElementById("nn_data").selectedIndex;
+      let ga_count = parseInt(document.getElementById("ga_count").value);
+      let ga_size = parseInt(document.getElementById("ga_size").value);
+      let ga_prob = parseInt(document.getElementById("ga_prob").value);
+      let ga_range = parseInt(document.getElementById("ga_range").value);
+
+      sizeNN = nn_size + 2;
+      drawNN(".neuralNetwork", 800, 610);
+      drawNN(".neuralNetworkmini", 380,270);
+      startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count);
+    }
+  </script>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close">&times;</span>
+        <h2>Select Neural Network and Genetic Algorithm parameter</h2>
+      </div>
+      <div class="modal-body">
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td>
+              <table>
+                <tr><td>Hidden layer size: </td><td><input type="number" id="nn_size" value="20"/></td></tr>
+                <tr>
+                  <td>Training dataset: </td>
+                  <td>
+                    <select id="nn_data" style="width: 100%">
+                      <option>y = sin(x)</option>
+                      <option>y = x^2</option>
+                      <option>y = x^3</option>
+                      <option>y = exp(-x^2)</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr><td>Iterations count: </td><td><input type="number" id="ga_count" value="200"/></td></tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr><td>Population size: </td><td><input type="number" id="ga_size" value="500"/></td></tr>
+                <tr><td>Mutation probability: </td><td><input type="number" id="ga_prob" value="10"/></td></tr>
+                <tr><td>Mutation range: </td><td><input type="number" id="ga_range" value="70"/></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button onclick="acceptModal();">Accept</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
 <!-- FOOTER -->
 <footer>
   <div id="footer">
-    <button id="start" onclick="startMagic();">Start</button>
+    <button id="start" onclick="document.getElementById('myModal').style.display = 'block';">Start</button>
     <button id="stop" onclick="pauseMagic();">Pause</button>
     <button id="reset" onclick="resetMagic();">Reset</button>
   </div>
@@ -115,6 +174,7 @@ var stateGA = 0;
 <script>
   document.getElementById("stop").disabled = true;
   document.getElementById("reset").disabled = true;
+  document.getElementsByClassName("modal-close")[0].onclick = function() { document.getElementById("myModal").style.display ="none" };
 </script>
 
 </html>
