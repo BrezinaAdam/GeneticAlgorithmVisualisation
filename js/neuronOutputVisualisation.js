@@ -118,7 +118,10 @@ function pauseMagic()
 
 function resetMagic()
 {
-  stateGA = 3;
+  if (stateGA == 1 || stateGA == 2)
+  {
+    stateGA = 3;
+  }
 }
 
 function executeGen()
@@ -170,6 +173,13 @@ function executeGen()
       if (counter > 0)
       {
         executeGen();
+      }
+      else
+      {
+        document.getElementById("start").disabled = false;
+        document.getElementById("stop").disabled = true;
+        document.getElementById("reset").disabled = true;
+        stateGA = 0;
       }
     }
     else if (stateGA == 2)
