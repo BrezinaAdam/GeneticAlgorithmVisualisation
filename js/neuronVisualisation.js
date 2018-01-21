@@ -123,26 +123,9 @@ function drawNN(svgCont, sizeX, sizeY)
     let r = parseInt(svgContainer.selectAll("circle[id='"+d.target+"']").attr("r"))+4;
     //let r = 21;
 
-
-  let k = (xx2-xx1) / (yy2-yy1);
-  let newx = Math.sqrt(r*r/(1+1/(k*k)));
-  let newy = newx/k;
-  return parseInt(d3.selectAll("circle[id='"+d.target+"']").attr("cy")) - newy;
-})
-.attr('stroke-width', function(d) {
-  return d.value;
-})
-.attr('stroke',"gray")
-.append("title").text("0.0")
-.call(d3.drag()
-.on("start", dragstarted));
-
-  /* Adam
     let k = (xx2-xx1) / (yy2-yy1);
     let newx = Math.sqrt(r*r/(1+1/(k*k)));
     let newy = newx/k;
-    */
-
 
     return parseInt(svgContainer.selectAll("circle[id='"+d.target+"']").attr("cx")) - newx;
   })
