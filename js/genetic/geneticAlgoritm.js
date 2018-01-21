@@ -72,7 +72,7 @@ class GeneticAlgoritm {
     let newNumbs = this.genBuilder.getAllElements(this.key, newPop[0]);
     newPop[1] = GeneticAlgoritm.calculateFitness(this.neuralNetwork, newNumbs, this.trainSet);
 
-    this.population[0] = GeneticAlgoritm.getHalfPopulation(this.population, newPop)[0];
+    this.population = GeneticAlgoritm.getHalfPopulation(this.population, newPop);
   }
 
   getFitness()
@@ -93,6 +93,19 @@ class GeneticAlgoritm {
   getTotalError()
   {
     return this.neuralNetwork.getTotalError(this.trainSet);
+  }
+
+  getBest24()
+  {
+    let best24 = [];
+
+    for (let i = 0; i < 24; i++)
+    {
+      let weights = this.genBuilder.getAllElements(this.key, this.population[0]);
+      best24.push({"id": i+1, "fitness": this.population[1][i], "weight": weights[i].slice(0, this.neuralNetwork.getNumOfWeights())});
+    }
+
+    return best24;
   }
 
   getOutput()

@@ -132,6 +132,7 @@ var line = svgContainer.selectAll("line")
   return d.value;
 })
 .attr('stroke',"gray")
+.append("title").text("0.0")
 .call(d3.drag()
 .on("start", dragstarted));
 
