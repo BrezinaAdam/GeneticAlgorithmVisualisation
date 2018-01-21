@@ -21,6 +21,7 @@
   <script type="text/javascript" src="./js/neural/neuralNetwork.js"></script>
   <script type="text/javascript" src="./js/neural/dataset.js"></script>
   <script type="text/javascript" src="./js/genetic/geneticAlgoritm.js"></script>
+  <script src="./js/neuronVisualisation.js"></script>
 </head>
 
 <!-- HEADER -->
@@ -33,7 +34,7 @@
   </div>
 </header>
 <script>
-var sizeNN = 12;
+  var sizeNN = 12;
  </script>
 
 <!-- BODY -->
@@ -45,11 +46,11 @@ var sizeNN = 12;
         <td rowspan="2">
           <!--graf neuronky-->
           <svg class="neuralNetwork"></svg>
-          <script src="./js/neuronVisualisation.js"></script>
+
         </td>
         <td>
           <svg width="500" height="270" class="neuralNetworkOutput"></svg>
-          <script src="./js/neuronOutputVisualisation.js"></script>
+
         </td>
       </tr>
       <tr>
@@ -65,10 +66,10 @@ var sizeNN = 12;
     <table border = "1">
       <tr>
         <td rowspan="2">
-          vyzualizácia potomkov a rodičov GA
+          <svg width="940" height="550" class="geneticAlgorithm"></svg>
         </td>
         <td >
-          graf neuronky
+          <svg class="neuralNetworkmini"></svg>
         </td>
       </tr>
       <tr>
@@ -79,6 +80,10 @@ var sizeNN = 12;
 
     </table>
   </div>
+
+  <script src="./js/neuronOutputVisualisation.js"></script>
+  <script src="./js/geneticVisualisation.js"></script>
+
 
 
 
@@ -91,6 +96,8 @@ var sizeNN = 12;
     }
     document.getElementById(cityName).style.display = "block";
   }
+  drawNN(".neuralNetwork", 800, 500);
+  drawNN(".neuralNetworkmini", 380,270);
 </script>
 
 </body>
