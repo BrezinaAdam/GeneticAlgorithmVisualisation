@@ -18,8 +18,8 @@ function drawGA(best24pop)
 
 
   let svgContainer = d3.select(".geneticAlgorithm");
-  let width = 880;
-  let height = 550;
+  let width = 800;
+  let height = 610;
 
   svgContainer.attr("width", width);
   svgContainer.attr("height", height);

@@ -43,50 +43,53 @@ var stateGA = 0;
 <!-- BODY -->
 <body>
 
-  <div id="London" class="w3-container city">
-    <table>
-      <tr>
-        <td rowspan="2">
-          <!--graf neuronky-->
-          <svg class="neuralNetwork"></svg>
+  <div id="outer">
+    <div id="London" class="w3-container city">
+      <table>
+        <tr>
+          <td rowspan="2" style="text-align: right;">
+            <!--graf neuronky-->
+            <svg class="neuralNetwork"></svg>
 
-        </td>
-        <td>
+          </td>
+          <td>
 
-          <!--MILAN<svg width="500" height="300" class="neuralNetworkOutput"></svg>-->
-          <svg width="500" height="270" class="neuralNetworkOutput"></svg>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <svg width="500" height="270" class="neuralNetworkError"></svg>
-        </td>
-      </tr>
-
-  </table>
-  </div>
-
-  <div id="Paris"  class="w3-container city" style="display:none">
-    <table>
-      <tr>
-        <td rowspan="2">
-          <svg width="940" height="550" class="geneticAlgorithm"></svg>
-        </td>
-        <td >
-          <svg class="neuralNetworkmini"></svg>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <svg width="380" height="270" class="neuralNetworkError"></svg>
-        </td>
-      </tr>
+            <!--MILAN<svg width="500" height="300" class="neuralNetworkOutput"></svg>-->
+            <svg width="500" height="270" class="neuralNetworkOutput"></svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg width="500" height="270" class="neuralNetworkError"></svg>
+          </td>
+        </tr>
 
     </table>
+    </div>
+
+    <div id="Paris"  class="w3-container city" style="display:none">
+      <table>
+        <tr>
+          <td rowspan="2">
+            <svg width="800" height="610" class="geneticAlgorithm"></svg>
+          </td>
+          <td >
+            <svg class="neuralNetworkmini"></svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg class="totalFitness"></svg>
+          </td>
+        </tr>
+
+      </table>
+    </div>
   </div>
 
   <script src="./js/neuronOutputVisualisation.js"></script>
   <script src="./js/geneticVisualisation.js"></script>
+  <script src="./js/fitnessVisualisation.js"></script>
 
   <script>
     function openCity(cityName) {
@@ -95,11 +98,12 @@ var stateGA = 0;
       for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
       }
-      document.getElementById(cityName).style.display = "block";
+      document.getElementById(cityName).style.display = "table-cell";
     }
 
     drawNN(".neuralNetwork", 800, 610);
-    drawNN(".neuralNetworkmini", 380,270);
+    //drawNN(".neuralNetworkmini", 380,270);
+    drawNN(".neuralNetworkmini", 500,300);
 
     function acceptModal()
     {
@@ -113,7 +117,7 @@ var stateGA = 0;
 
       sizeNN = nn_size + 2;
       drawNN(".neuralNetwork", 800, 610);
-      drawNN(".neuralNetworkmini", 380,270);
+      drawNN(".neuralNetworkmini", 500,300);
       startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count);
     }
   </script>
