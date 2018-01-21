@@ -6,7 +6,6 @@ function drawNN(svgCont, sizeX, sizeY)
     links:[]
   };
 
-  if(svgCont === ".neuralNetwork"){
     graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
     graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
     for(let i = 1; i < sizeNN-1; i++){
@@ -14,18 +13,11 @@ function drawNN(svgCont, sizeX, sizeY)
       graph.links.push({"id": ('w'+i), "source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": Math.random()*3.5+2.5});
       graph.links.push({"id": ('w'+(i+sizeNN-2)),"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": Math.random()*3.5+2.5});
     }
-  }
-  else{
-    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1})
-    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3})
-    for(let i = 1; i < sizeNN-1; i++){
-      graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2})
-      graph.links.push({"id": ('w'+i), "source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": Math.random()*3.5+2.5});
-      graph.links.push({"id": ('w'+(i+sizeNN-2)),"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": Math.random()*3.5+2.5});
-    }
-  }
+
+
 
   let svgContainer = d3.select(svgCont);
+  svgContainer.selectAll('*').remove();
   let width = sizeX;
   let height = sizeY;
 

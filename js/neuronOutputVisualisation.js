@@ -110,7 +110,8 @@ function executeGen()
     {
       genAlg.step();
       let result = genAlg.getOutput();
-      console.log(genAlg.getBest24());
+      //console.log(genAlg.getBest24());
+      drawGA(genAlg.getBest24());
 
       let data1 = [], data2 = [];
       for (let j = 0; j < result[0].length; j++)
@@ -127,7 +128,7 @@ function executeGen()
 
       let weights = genAlg.getWeights();
       for(let i = 0; i < weights.length; i++){
-        d3.selectAll("line[id='w"+(i+1)+"']")
+        d3.select(".neuralNetwork").selectAll("line[id='w"+(i+1)+"']")
         .attr('stroke-width', function(d) {
           return Math.abs(weights[i]);
         })
@@ -161,7 +162,7 @@ function executeGen()
       document.getElementById("start").disabled = false;
       document.getElementById("stop").disabled = true;
       document.getElementById("reset").disabled = true;
-      
+
       stateGA = 0;
     }
   }, 200);
