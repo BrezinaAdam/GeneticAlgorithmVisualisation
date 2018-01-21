@@ -66,9 +66,27 @@ canvasErr.append("g")
 .tickSize(-300)
 .tickFormat(""));
 
+var canvasFT = d3.select(".totalFitness");
+canvasFT.attr("width", WIDTH);
+canvasFT.attr("height", HEIGHT);
+
+canvasFT.append("g")
+.attr("class", "grid")
+.call(make_y_gridlines()
+.tickSize(-500)
+.tickFormat(""));
+
+canvasFT.append("g")
+.attr("class", "grid")
+.attr("transform", "translate(0," + 300 + ")")
+.call(make_x_gridlines()
+.tickSize(-300)
+.tickFormat(""));
+
 var genAlg = null;
 var counter = MAX_ITERS;
 var totalError = [];
+var totalFitness = [];
 
 function startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count)
 {
@@ -79,6 +97,7 @@ function startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count)
   MAX_ITERS = ga_count;
   counter = ga_count;
   totalError = [];
+  totalFitness = [];
   stateGA = 1;
   executeGen();
 }
@@ -111,7 +130,6 @@ function executeGen()
     {
       genAlg.step();
       let result = genAlg.getOutput();
-      //console.log(genAlg.getBest24());
       drawGA(genAlg.getBest24());
 
       let data1 = [], data2 = [];
@@ -143,6 +161,10 @@ function executeGen()
       totalError.push([MAX_ITERS-counter, getSquareError(result[1], result[2])]);
       canvasErr.selectAll("path").remove();
       canvasErr.append("path").data([totalError]).attr("d", lineErr).attr("stroke", "red").attr("stroke-width", 2).attr("fill", "none");
+
+      totalFitness.push([MAX_ITERS-counter, 0]);
+      totalFitness.push([MAX_ITERS-counter, getTotalFitness(genAlg.getFitness())]);
+      drawTF(totalFitness, MAX_ITERS);
 
       counter--;
       if (counter > 0)
@@ -179,4 +201,16 @@ function getSquareError(requested, real)
   }
 
   return sum / requested.length;
+}
+
+function getTotalFitness(fitnesses)
+{
+  let sum = 0;
+
+  for (let i = 0; i < fitnesses.length; i++)
+  {
+    sum += fitnesses[i];
+  }
+
+  return sum / fitnesses.length;
 }
