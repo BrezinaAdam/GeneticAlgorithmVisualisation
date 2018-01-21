@@ -154,7 +154,7 @@ function executeGen()
         .attr("stroke", function(d){
           return d.color = (weights[i] > 0 ? "rgb(230, 145, 106)" : "rgb(52, 98, 128)");
         })
-        .select("title").text("W: " + weights[i]);
+        .append("title").text("W: " + weights[i]);
       }
 
       totalError.push([MAX_ITERS-counter, 0]);
