@@ -29,8 +29,10 @@ class Dataset
     do
     {
       res[0].push(this.x_map(curr, from, to));
-      res[1].push(this.y_map(Math.sin(curr)/3*2));
-      //res[1].push(this.x_map(curr, from, to));
+      //res[1].push(this.y_map(Math.sin(curr)/3*2));
+      //res[1].push(Math.pow(this.x_map(curr, from, to), 2)/3*2);
+      //res[1].push((0.5 * Math.pow(this.x_map(curr, from, to), 3) + 0.5)/3*2);
+      res[1].push(Math.exp(-Math.pow((this.x_map(curr, from, to)) / 0.3408, 2))/3*2);
       curr += step;
     }
     while (curr < to);

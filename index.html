@@ -34,7 +34,10 @@
   </div>
 </header>
 <script>
-  var sizeNN = 12;
+
+var sizeNN = 20;
+var stateGA = 0;
+
  </script>
 
 <!-- BODY -->
@@ -49,13 +52,14 @@
 
         </td>
         <td>
-          <svg width="500" height="270" class="neuralNetworkOutput"></svg>
 
+          <!--MILAN<svg width="500" height="300" class="neuralNetworkOutput"></svg>-->
+          <svg width="500" height="270" class="neuralNetworkOutput"></svg>
         </td>
       </tr>
       <tr>
         <td>
-          <svg width="300" height="270" class="neuralNetworkOutput"></svg
+          <svg width="500" height="300" class="neuralNetworkError"></svg>
         </td>
       </tr>
 
@@ -84,9 +88,6 @@
   <script src="./js/neuronOutputVisualisation.js"></script>
   <script src="./js/geneticVisualisation.js"></script>
 
-
-
-
   <script>
   function openCity(cityName) {
     var i;
@@ -106,9 +107,14 @@
 <footer>
   <div id="footer">
     <button id="start" onclick="startMagic();">Start</button>
-    <button id="stop">Stop</button>
-    <button id="reset">Reset</button>
+    <button id="stop" onclick="pauseMagic();">Pause</button>
+    <button id="reset" onclick="resetMagic();">Reset</button>
   </div>
 </footer>
+
+<script>
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+</script>
 
 </html>
