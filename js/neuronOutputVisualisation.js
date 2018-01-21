@@ -6,7 +6,7 @@ var WIDTH = 500;
 var HEIGHT = 300;
 var PADDING = 12;
 
-var line = d3.line()
+var lineOut = d3.line()
 .x(function(d){ return (d[0] + 1)*250;})
 .y(function(d){return HEIGHT-d[1]*250 - PADDING;});
 
@@ -66,19 +66,48 @@ canvasErr.append("g")
 .tickSize(-300)
 .tickFormat(""));
 
+var genAlg = null;
+var counter = MAX_ITERS;
 var totalError = [];
 
 function startMagic()
 {
-  let genAlg = new GeneticAlgoritm(sizeNN-2);
-  let counter = MAX_ITERS;
+  document.getElementById("start").disabled = true;
+  document.getElementById("stop").disabled = false;
+  document.getElementById("reset").disabled = false;
+  genAlg = new GeneticAlgoritm(sizeNN-2);
+  counter = MAX_ITERS;
   totalError = [];
+  stateGA = 1;
   executeGen();
+}
 
-  function executeGen()
+function pauseMagic()
+{
+  if (stateGA == 2)
   {
-    console.log("in");
-    setTimeout(function(){
+    stateGA = 1;
+    document.getElementById("stop").innerHTML = "Pause";
+  }
+  else if (stateGA == 1)
+  {
+    document.getElementById("stop").innerHTML = "Resume";
+    stateGA = 2;
+  }
+}
+
+function resetMagic()
+{
+  stateGA = 3;
+}
+
+function executeGen()
+{
+  console.log("in");
+  setTimeout(function(){
+
+    if (stateGA == 1)
+    {
       genAlg.step();
       let result = genAlg.getOutput();
       console.log(genAlg.getBest24());
@@ -93,8 +122,8 @@ function startMagic()
       canvas.selectAll("path").remove();
       canvas.selectAll("text").remove();
       canvas.append("text").attr("x", 0).attr("y", 20).text(counter);
-      canvas.append("path").data([data1]).attr("d", line).attr("stroke", "blue").attr("stroke-width", 2).attr("fill", "none");
-      canvas.append("path").data([data2]).attr("d", line).attr("stroke", "red").attr("stroke-width", 2).attr("fill", "none");
+      canvas.append("path").data([data1]).attr("d", lineOut).attr("stroke", "blue").attr("stroke-width", 2).attr("fill", "none");
+      canvas.append("path").data([data2]).attr("d", lineOut).attr("stroke", "red").attr("stroke-width", 2).attr("fill", "none");
 
       let weights = genAlg.getWeights();
       for(let i = 0; i < weights.length; i++){
@@ -118,9 +147,24 @@ function startMagic()
       {
         executeGen();
       }
+    }
+    else if (stateGA == 2)
+    {
+      executeGen();
+    }
+    else if (stateGA == 3)
+    {
+      genAlg = null;
+      counter = MAX_ITERS;
+      totalError = [];
 
-    }, 200);
-  }
+      document.getElementById("start").disabled = false;
+      document.getElementById("stop").disabled = true;
+      document.getElementById("reset").disabled = true;
+      
+      stateGA = 0;
+    }
+  }, 200);
 }
 
 function getSquareError(requested, real)

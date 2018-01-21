@@ -34,6 +34,7 @@
 </header>
 <script>
 var sizeNN = 20;
+var stateGA = 0;
  </script>
 
 <!-- BODY -->
@@ -98,9 +99,14 @@ var sizeNN = 20;
 <footer>
   <div id="footer">
     <button id="start" onclick="startMagic();">Start</button>
-    <button id="stop">Stop</button>
-    <button id="reset">Reset</button>
+    <button id="stop" onclick="pauseMagic();">Pause</button>
+    <button id="reset" onclick="resetMagic();">Reset</button>
   </div>
 </footer>
+
+<script>
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+</script>
 
 </html>
