@@ -12,9 +12,9 @@
 //import NeuralNetwork from "./js/neural/neuralNetwork";
 
 class GeneticAlgoritm {
-  constructor(netSize=40, popSize=500, mutProb=10, replProb=70)
+  constructor(netSize=40, dataset = 0, popSize=500, mutProb=10, replProb=70)
   {
-    this.trainSet = Dataset.generate(0, 2*Math.PI, 0.1);
+    this.trainSet = Dataset.generate(0, 2*Math.PI, 0.1, dataset);
     this.neuralNetwork = new NeuralNetwork([1, netSize, 1]);
     this.genBuilder = new GenotypBuilder(32,32);
 
@@ -102,6 +102,15 @@ class GeneticAlgoritm {
     for (let i = 0; i < 24; i++)
     {
       let weights = this.genBuilder.getAllElements(this.key, this.population[0]);
+
+      for (let j = 0; j < weights.length; j++)
+      {
+        for (let k = 0; k < weights[j].length; k++)
+        {
+          weights[j][k] /= 1355555000.0;
+        }
+      }
+
       best24.push({"id": i+1, "fitness": this.population[1][i], "weight": weights[i].slice(0, this.neuralNetwork.getNumOfWeights())});
     }
 

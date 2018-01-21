@@ -26,6 +26,7 @@ function drawNN(svgCont, sizeX, sizeY)
   }
 
   let svgContainer = d3.select(svgCont);
+  svgContainer.selectAll('*').remove();
   let width = sizeX;
   let height = sizeY;
 

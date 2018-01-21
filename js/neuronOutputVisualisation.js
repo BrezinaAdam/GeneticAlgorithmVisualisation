@@ -70,13 +70,14 @@ var genAlg = null;
 var counter = MAX_ITERS;
 var totalError = [];
 
-function startMagic()
+function startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count)
 {
   document.getElementById("start").disabled = true;
   document.getElementById("stop").disabled = false;
   document.getElementById("reset").disabled = false;
-  genAlg = new GeneticAlgoritm(sizeNN-2);
-  counter = MAX_ITERS;
+  genAlg = new GeneticAlgoritm(nn_size, nn_data, ga_size, ga_prob, ga_range);
+  MAX_ITERS = ga_count;
+  counter = ga_count;
   totalError = [];
   stateGA = 1;
   executeGen();
@@ -161,7 +162,7 @@ function executeGen()
       document.getElementById("start").disabled = false;
       document.getElementById("stop").disabled = true;
       document.getElementById("reset").disabled = true;
-      
+
       stateGA = 0;
     }
   }, 200);
