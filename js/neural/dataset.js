@@ -19,7 +19,7 @@ class Dataset
     return (y + 1.0) / 2.0;
   }
 
-  static generate(from, to, step)
+  static generate(from, to, step, type)
   {
     let res = [2];
     res[0] = [];
@@ -29,8 +29,23 @@ class Dataset
     do
     {
       res[0].push(this.x_map(curr, from, to));
-      res[1].push(this.y_map(Math.sin(curr)));
-      //res[1].push(this.x_map(curr, from, to));
+
+      if (type == 0)
+      {
+        res[1].push(this.y_map(Math.sin(curr)/3*2));
+      }
+      else if(type == 1)
+      {
+        res[1].push(Math.pow(this.x_map(curr, from, to), 2)/3*2);
+      }
+      else if(type == 2)
+      {
+        res[1].push((0.5 * Math.pow(this.x_map(curr, from, to), 3) + 0.5)/3*2);
+      }
+      else
+      {
+        res[1].push(Math.exp(-Math.pow((this.x_map(curr, from, to)) / 0.3408, 2))/3*2);
+      }
       curr += step;
     }
     while (curr < to);
@@ -39,4 +54,4 @@ class Dataset
   }
 }
 
-module.exports = Dataset;
+//module.exports = Dataset;

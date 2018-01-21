@@ -12,6 +12,16 @@
   <link rel="stylesheet" href="css/stylenew.css?v=1.0">
 
   <script type="text/javascript" src="js/d3.v4.min.js" charset="utf"></script>
+  <script type="text/javascript" src="./js/genetic/crossOver.js"></script>
+  <script type="text/javascript" src="./js/genetic/genotypBuilder.js"></script>
+  <script type="text/javascript" src="./js/genetic/initPopulation.js"></script>
+  <script type="text/javascript" src="./js/genetic/mutation.js"></script>
+  <script type="text/javascript" src="./js/genetic/selection.js"></script>
+  <script type="text/javascript" src="./js/neural/neuron.js"></script>
+  <script type="text/javascript" src="./js/neural/neuralNetwork.js"></script>
+  <script type="text/javascript" src="./js/neural/dataset.js"></script>
+  <script type="text/javascript" src="./js/genetic/geneticAlgoritm.js"></script>
+  <script src="./js/neuronVisualisation.js"></script>
 </head>
 
 <!-- HEADER -->
@@ -23,7 +33,9 @@
     <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
   </div>
 </header>
+<script>
 
+<<<<<<< HEAD
 <!-- BODY -->
 <body>
 
@@ -191,52 +203,152 @@
 
   </script>
 
+=======
+var sizeNN = 20;
+var stateGA = 0;
+>>>>>>> e1ac42cde2386fc37457061a2a631f3ace0b2035
 
+ </script>
 
+<!-- BODY -->
+<body>
 
-  <div id="Paris"  class="w3-container city" style="display:none">
-    <table border = "1">
-      <p> </p>
-      <tr>
-        <td rowspan="2">
-          vyzualizácia potomkov a rodičov GA
-        </td>
-        <td >
-          graf neuronky
-        </td>
-      </tr>
-      <tr>
-        <td>
-          sinusoida
-        </td>
-      </tr>
+  <div id="outer">
+    <div id="London" class="w3-container city">
+      <table>
+        <tr>
+          <td rowspan="2" style="text-align: right;">
+            <!--graf neuronky-->
+            <svg class="neuralNetwork"></svg>
+
+          </td>
+          <td>
+
+            <!--MILAN<svg width="500" height="300" class="neuralNetworkOutput"></svg>-->
+            <svg width="500" height="270" class="neuralNetworkOutput"></svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg width="500" height="270" class="neuralNetworkError"></svg>
+          </td>
+        </tr>
 
     </table>
+    </div>
 
+    <div id="Paris"  class="w3-container city" style="display:none">
+      <table>
+        <tr>
+          <td rowspan="2">
+            <svg width="800" height="610" class="geneticAlgorithm"></svg>
+          </td>
+          <td >
+            <svg class="neuralNetworkmini"></svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg class="totalFitness"></svg>
+          </td>
+        </tr>
 
+      </table>
+    </div>
   </div>
 
+  <script src="./js/neuronOutputVisualisation.js"></script>
+  <script src="./js/geneticVisualisation.js"></script>
+  <script src="./js/fitnessVisualisation.js"></script>
 
   <script>
-  function openCity(cityName) {
-    var i;
-    var x = document.getElementsByClassName("city");
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
+    function openCity(cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(cityName).style.display = "table-cell";
     }
-    document.getElementById(cityName).style.display = "block";
-  }
-</script>
+
+    drawNN(".neuralNetwork", 800, 610);
+    //drawNN(".neuralNetworkmini", 380,270);
+    drawNN(".neuralNetworkmini", 500,300);
+
+    function acceptModal()
+    {
+      document.getElementById("myModal").style.display ="none";
+      let nn_size = parseInt(document.getElementById("nn_size").value);
+      let nn_data = document.getElementById("nn_data").selectedIndex;
+      let ga_count = parseInt(document.getElementById("ga_count").value);
+      let ga_size = parseInt(document.getElementById("ga_size").value);
+      let ga_prob = parseInt(document.getElementById("ga_prob").value);
+      let ga_range = parseInt(document.getElementById("ga_range").value);
+
+      sizeNN = nn_size + 2;
+      drawNN(".neuralNetwork", 800, 610);
+      drawNN(".neuralNetworkmini", 500,300);
+      startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count);
+    }
+  </script>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close">&times;</span>
+        <h2>Select Neural Network and Genetic Algorithm parameter</h2>
+      </div>
+      <div class="modal-body">
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td>
+              <table>
+                <tr><td>Hidden layer size: </td><td><input type="number" id="nn_size" value="20"/></td></tr>
+                <tr>
+                  <td>Training dataset: </td>
+                  <td>
+                    <select id="nn_data" style="width: 100%">
+                      <option>y = sin(x)</option>
+                      <option>y = x^2</option>
+                      <option>y = x^3</option>
+                      <option>y = exp(-x^2)</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr><td>Iterations count: </td><td><input type="number" id="ga_count" value="200"/></td></tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr><td>Population size: </td><td><input type="number" id="ga_size" value="500"/></td></tr>
+                <tr><td>Mutation probability: </td><td><input type="number" id="ga_prob" value="10"/></td></tr>
+                <tr><td>Mutation range: </td><td><input type="number" id="ga_range" value="70"/></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button onclick="acceptModal();">Accept</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
 <!-- FOOTER -->
 <footer>
   <div id="footer">
-    <button id="start">Start</button>
-    <button id="stop">Stop</button>
-    <button id="reset">Reset</button>
+    <button id="start" onclick="document.getElementById('myModal').style.display = 'block';">Start</button>
+    <button id="stop" onclick="pauseMagic();">Pause</button>
+    <button id="reset" onclick="resetMagic();">Reset</button>
   </div>
+</footer>
 
+<script>
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+  document.getElementsByClassName("modal-close")[0].onclick = function() { document.getElementById("myModal").style.display ="none" };
+</script>
 
-  </html>
+</html>

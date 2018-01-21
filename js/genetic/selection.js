@@ -1,6 +1,6 @@
 class Selection {
 
-  getOne(){
+  /*getOne(){
     let sum = 0;
     let rand = Math.random()*this.totalFittness;
     let index = 0;
@@ -11,7 +11,21 @@ class Selection {
     }
 
     return this.population[index-1];
+  }*/
 
+  getOne(){
+    let rand = Math.random()*this.totalFittness;
+
+    for (let i = 0; i < this.fitness.length; i++)
+    {
+      rand -= this.fitness[i];
+      if (rand <= 0)
+      {
+        return this.population[i];
+      }
+    }
+
+    return this.population[this.fitness.length-1];
   }
 
   getRoulete(){
@@ -49,4 +63,4 @@ class Selection {
   }
 }
 
-module.exports = Selection
+//module.exports = Selection

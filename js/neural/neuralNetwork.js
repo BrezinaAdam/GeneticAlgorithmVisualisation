@@ -1,6 +1,6 @@
 'using strict';
 
-const Neuron = require('./neuron.js');
+//const Neuron = require('./neuron.js');
 
 /**
   Class NeuralNetwork
@@ -56,11 +56,11 @@ class NeuralNetwork
 
       for(let i = 0; i < numOfW; i++)
       {
-        weightsArray.push(pop[idx][i] / 10000.0);
+        weightsArray.push(pop[idx][i] / 1355555000.0);
       }
       for(let i = 0; i < numOfB - 1; i++)
       {
-        biasesArray.push(pop[idx][numOfW + i] / 10000.0);
+        biasesArray.push(pop[idx][numOfW + i] / 1355555000.0);
       }
 
       this.setWeights(weightsArray);
@@ -206,6 +206,22 @@ class NeuralNetwork
       return weights;
     }
 
+    getBiases()
+    {
+
+      let biases = [];
+
+      for (let i = 0; i < this.layersStruct.length; i++)
+      {
+        for (let j = 0; j < this.layersStruct[i]; j++)
+        {
+          biases.push(this.layers[i][j].getBias());
+        }
+      }
+
+      return biases;
+    }
+
     /**
       method setInput sets the value for the neuron
       @param {!number} input defines value for single neron
@@ -273,14 +289,14 @@ class NeuralNetwork
 
       if (typeof(desired) == 'number')
       {
-        return Math.pow(desired - this.layers[last][0].getOutput(), 4);
+        return Math.pow(desired - this.layers[last][0].getOutput(), 2);
       }
       else if (typeof(desired) == 'object')
       {
         let sum = 0;
         for (let i = 0; i < this.layersStruct[last]; i++)
         {
-          sum += Math.pow(desired[i] - this.layers[last][i].getOutput(), 4);
+          sum += Math.pow(desired[i] - this.layers[last][i].getOutput(), 2);
         }
         return sum;
       }
@@ -312,4 +328,4 @@ class NeuralNetwork
 /**
 NeuralNetwork is exposed as a module
 */
-module.exports = NeuralNetwork;
+//module.exports = NeuralNetwork;
