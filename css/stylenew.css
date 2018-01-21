@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 header{
   background-color: #2A2A2A;
   padding: 5px;
@@ -6,8 +10,16 @@ header{
 }
 
 body{
-  background-color: #fdffee;
+  background-color: #c9c9c9;
   margin: auto;
+  height: 100%;
+}
+
+#outer {
+  width: 100%;
+  height: calc(100% - 160px);
+  position: absolute;
+  display: table;
 }
 
 footer{
@@ -42,7 +54,7 @@ button{
 }
 
 button#tab {
-  background-color: #87B6A7;
+  background-color: #6497b1;
   color: #2A2A2A;
 
   font-weight: bold;
@@ -56,7 +68,7 @@ button#tab {
 
 button#tab:hover {
   background-color: rgba(42, 42, 42, 0.87);
-  color: #87B6A7;
+  color: #6497b1;
 
   -ms-transform: scale(1, 1.5); /* IE 9 */
   -webkit-transform: scale(1, 1.5); /* Safari */
@@ -141,61 +153,113 @@ button:active{
 
 input{
   background-color: #eef2d8;
+
   border: 1px solid #2A2A2A;
 }
 
 svg{
-  width: 100%;
-  height: 100%;
   border: 1px solid #2A2A2A;
-  background-color: #eef2d8;
+  background-color: rgba(255, 250, 244, 1)
 }
 
-.line
-{
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
-
-.line2
-{
-  fill: none;
-  stroke: green;
-  stroke-width: 2px;
-}
-
-.grid line {
-  stroke: lightgrey;
+line {
   stroke-opacity: 0.7;
-  shape-rendering: crispEdges;
 }
 
-.grid path {
-  stroke-width: 0;
-}
 
-#London{
-    height: 80%;
+#London, #Paris{
+  height: 625px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #London table, #Paris table{
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
-  height: 400px;
+  //width: 100%;
+  height: 300px;
   padding: 0px;
 
 }
 #London table td{
   padding: 0px;
 }
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
+
+
+line:hover {
+  stroke: black;
+  stroke-opacity: 1;
 }
 
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.6px;
+circle {
+  stroke: rgb(246, 210, 242);
+  //stroke: rgb(255, 255, 255);
+}
+
+circle:hover {
+  stroke: black;
+  stroke-width: 2.5px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+.modal-close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+  text-align: center;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #2a2a2a;
+    color: white;
+    text-align: center;
 }

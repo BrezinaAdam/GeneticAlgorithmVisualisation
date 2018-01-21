@@ -12,6 +12,16 @@
   <link rel="stylesheet" href="css/stylenew.css?v=1.0">
 
   <script type="text/javascript" src="js/d3.v4.min.js" charset="utf"></script>
+  <script type="text/javascript" src="./js/genetic/crossOver.js"></script>
+  <script type="text/javascript" src="./js/genetic/genotypBuilder.js"></script>
+  <script type="text/javascript" src="./js/genetic/initPopulation.js"></script>
+  <script type="text/javascript" src="./js/genetic/mutation.js"></script>
+  <script type="text/javascript" src="./js/genetic/selection.js"></script>
+  <script type="text/javascript" src="./js/neural/neuron.js"></script>
+  <script type="text/javascript" src="./js/neural/neuralNetwork.js"></script>
+  <script type="text/javascript" src="./js/neural/dataset.js"></script>
+  <script type="text/javascript" src="./js/genetic/geneticAlgoritm.js"></script>
+  <script src="./js/neuronVisualisation.js"></script>
 </head>
 
 <!-- HEADER -->
@@ -23,176 +33,152 @@
     <!--<button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button>-->
   </div>
 </header>
+<script>
+
+var sizeNN = 20;
+var stateGA = 0;
+
+ </script>
 
 <!-- BODY -->
 <body>
 
-  <div id="London" class="w3-container city">
+  <div id="outer">
+    <div id="London" class="w3-container city">
+      <table>
+        <tr>
+          <td rowspan="2" style="text-align: right;">
+            <!--graf neuronky-->
+            <svg class="neuralNetwork"></svg>
 
-    <table border="1">
+          </td>
+          <td>
 
-      <tr>
-        <td rowspan="2">
-          <!--graf neuronky-->
-          <svg class="lond"></svg>
-
-        </td>
-        <td >
-          grafik
-        </td>
-      </tr>
-      <tr>
-        <td>
-          grafiiik
-        </td>
-      </tr>
-    </div>
-
-  </table>
-  <script>
-  var graph = {
-    nodes:[],
-    links:[]
-  };
-
-  let sizeNN = 15;
-  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt()), "group": 1, "diameter": 16}) //input neuron
-  graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "group": 3, "diameter": 18}) //output neuron
-  for(let i = 1; i < sizeNN-1; i++){
-    graph.nodes.push({"id": String.fromCharCode('A'.charCodeAt() + i), "group": 2, "diameter": 12}) //hidden layer neurons
-    graph.links.push({"source": String.fromCharCode('A'.charCodeAt()), "target": String.fromCharCode('A'.charCodeAt() + i), "value": 1});
-    graph.links.push({"source": String.fromCharCode('A'.charCodeAt() + i), "target": String.fromCharCode('A'.charCodeAt() + sizeNN-1), "value": 3});
-  }
-
-  var svg = d3.select(".lond"),
-  width = 500,
-  height = 400;
-
-  var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-  var simulation = d3.forceSimulation()
-  .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(150))
-  .force("charge", d3.forceManyBody())
-  .force("x", d3.forceX(function(d){
-    if(d.group === 2){
-      return 0;
-    } else if (d.group === 3){
-      return width/2;
-    } else {
-      return -width/2;
-    }
-  }))
-  .force("y", d3.forceY(function(d){
-    if(d.group === 2){
-      return (d.id.charCodeAt()-64)*20-20;
-    }
-    else {
-      return height/2;
-    }
-    //return 150;
-  }))
-  .force("center", d3.forceCenter(600, 250));
-
-  var link = svg.append("g")
-  .attr("class", "links")
-  .selectAll("line")
-  .data(graph.links)
-  .enter().append("line")
-  .attr("stroke-width", function(d) { return d.value; });
-
-  var node = svg.append("g")
-  .attr("class", "nodes")
-  .selectAll("circle")
-  .data(graph.nodes)
-  .enter().append("circle")
-  .attr("r", function(d) { return d.diameter; })
-  .attr("fill", function(d) { return color(d.group); })
-  .call(d3.drag()
-  .on("start", dragstarted)
-  .on("drag", dragged)
-  .on("end", dragended));
-
-  node.append("title").text(function(d) { return d.id; });
-
-  simulation.nodes(graph.nodes).on("tick", ticked);
-
-  simulation.force("link").links(graph.links);
-
-  function ticked() {
-    link
-    .attr("x1", function(d) { return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
-    node
-    .attr("cx", function(d) { return d.x; })
-    .attr("cy", function(d) { return d.y; });
-  }
-
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-
-  function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  }
-
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
-  </script>
-
-</div>
-
-
-  <div id="Paris"  class="w3-container city" style="display:none">
-    <table border = "1">
-      <p> </p>
-      <tr>
-        <td rowspan="2">
-          vyzualizácia potomkov a rodičov GA
-        </td>
-        <td >
-          graf neuronky
-        </td>
-      </tr>
-      <tr>
-        <td>
-          sinusoida
-        </td>
-      </tr>
+            <!--MILAN<svg width="500" height="300" class="neuralNetworkOutput"></svg>-->
+            <svg width="500" height="270" class="neuralNetworkOutput"></svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg width="500" height="270" class="neuralNetworkError"></svg>
+          </td>
+        </tr>
 
     </table>
+    </div>
 
+    <div id="Paris"  class="w3-container city" style="display:none">
+      <table>
+        <tr>
+          <td rowspan="2">
+            <svg width="800" height="610" class="geneticAlgorithm"></svg>
+          </td>
+          <td >
+            <svg class="neuralNetworkmini"></svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg class="totalFitness"></svg>
+          </td>
+        </tr>
 
+      </table>
+    </div>
   </div>
 
+  <script src="./js/neuronOutputVisualisation.js"></script>
+  <script src="./js/geneticVisualisation.js"></script>
+  <script src="./js/fitnessVisualisation.js"></script>
 
   <script>
-  function openCity(cityName) {
-    var i;
-    var x = document.getElementsByClassName("city");
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
+    function openCity(cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(cityName).style.display = "table-cell";
     }
-    document.getElementById(cityName).style.display = "block";
-  }
-</script>
+
+    drawNN(".neuralNetwork", 800, 610);
+    //drawNN(".neuralNetworkmini", 380,270);
+    drawNN(".neuralNetworkmini", 500,300);
+
+    function acceptModal()
+    {
+      document.getElementById("myModal").style.display ="none";
+      let nn_size = parseInt(document.getElementById("nn_size").value);
+      let nn_data = document.getElementById("nn_data").selectedIndex;
+      let ga_count = parseInt(document.getElementById("ga_count").value);
+      let ga_size = parseInt(document.getElementById("ga_size").value);
+      let ga_prob = parseInt(document.getElementById("ga_prob").value);
+      let ga_range = parseInt(document.getElementById("ga_range").value);
+
+      sizeNN = nn_size + 2;
+      drawNN(".neuralNetwork", 800, 610);
+      drawNN(".neuralNetworkmini", 500,300);
+      startMagic(nn_size, nn_data, ga_size, ga_prob, ga_range, ga_count);
+    }
+  </script>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close">&times;</span>
+        <h2>Select Neural Network and Genetic Algorithm parameter</h2>
+      </div>
+      <div class="modal-body">
+        <table style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td>
+              <table>
+                <tr><td>Hidden layer size: </td><td><input type="number" id="nn_size" value="20"/></td></tr>
+                <tr>
+                  <td>Training dataset: </td>
+                  <td>
+                    <select id="nn_data" style="width: 100%">
+                      <option>y = sin(x)</option>
+                      <option>y = x^2</option>
+                      <option>y = x^3</option>
+                      <option>y = exp(-x^2)</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr><td>Iterations count: </td><td><input type="number" id="ga_count" value="200"/></td></tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr><td>Population size: </td><td><input type="number" id="ga_size" value="500"/></td></tr>
+                <tr><td>Mutation probability: </td><td><input type="number" id="ga_prob" value="10"/></td></tr>
+                <tr><td>Mutation range: </td><td><input type="number" id="ga_range" value="70"/></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button onclick="acceptModal();">Accept</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
 <!-- FOOTER -->
 <footer>
   <div id="footer">
-    <button id="start">Start</button>
-    <button id="stop">Stop</button>
-    <button id="reset">Reset</button>
+    <button id="start" onclick="document.getElementById('myModal').style.display = 'block';">Start</button>
+    <button id="stop" onclick="pauseMagic();">Pause</button>
+    <button id="reset" onclick="resetMagic();">Reset</button>
   </div>
+</footer>
 
+<script>
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+  document.getElementsByClassName("modal-close")[0].onclick = function() { document.getElementById("myModal").style.display ="none" };
+</script>
 
-  </html>
+</html>

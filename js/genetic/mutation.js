@@ -86,4 +86,4 @@ var pop = [[1, 1, 1, 1, 1, 1, 1],[1, 1, 1, 1, 1, 1, 1],[1, 1, 1, 1, 1, 1, 1],[1,
 console.log(a.getMutatedPopulation(pop,"BINARY"));  // find error
 console.log(a.getMutatedPopulation(pop,"INTEGER", -8, 8));
 */
-module.exports = Mutation
+//module.exports = Mutation
