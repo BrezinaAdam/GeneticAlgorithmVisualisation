@@ -42,10 +42,10 @@ class GeneticAlgoritm {
     let selection = new Selection();
     var numbers = this.genBuilder.getAllElements(this.key, this.population[0]);
 
-    if(this.stepCnt % 10 == 0)
+    if(this.stepCnt % 7 == 0)
     {
-      let newHalf = this.popGenerator.getPopulation(this.size / 5 * 2);
-      for (let j = 0; j < this.size / 5 * 2; j++)
+      let newHalf = this.popGenerator.getPopulation(this.size / 5);
+      for (let j = 0; j < this.size / 5; j++)
       {
         this.population[0][Math.round(Math.random() * (this.size - 1))] = newHalf[j];
       }

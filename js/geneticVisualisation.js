@@ -15,11 +15,11 @@ function drawGA(best24pop)
       minFitness = best24pop[i].fitness;
   }
 
-
-
   let svgContainer = d3.select(".geneticAlgorithm");
   let width = 800;
   let height = 610;
+
+  svgContainer.selectAll('*').remove();
 
   svgContainer.attr("width", width);
   svgContainer.attr("height", height);
@@ -49,11 +49,40 @@ function drawGA(best24pop)
       }
     })
   .attr("r", function (d) {
-    return 15*(d.fitness-minFitness)/(maxFitness-minFitness)+15;
+    if(maxFitness-minFitness < 0.00001)
+      return 35;
+    return 35*(d.fitness-minFitness)/(maxFitness-minFitness)+5;
   })
   .style("fill", function(d) {
+    let normFitness = 0;
+    if(maxFitness-minFitness < 0.00001)
+      normFitness = 0.5;
+    else {
+      normFitness = (d.fitness-minFitness)/(maxFitness-minFitness);
+    }
     //alert("rgba(0,"+(d.fitness*255/(maxFitness-minFitness))+","+(d.fitness*255/(maxFitness-minFitness))+",1)");
-      return  "rgba(0,"+Math.round((d.fitness-minFitness)*255.0/(maxFitness-minFitness))+","+Math.round((d.fitness-minFitness)*255.0/(maxFitness-minFitness))+",1)";
+    //let red = Math.round((d.fitness-minFitness)*255.0/(maxFitness-minFitness));
+    //let green = Math.round((d.fitness-minFitness)*255.0/(maxFitness-minFitness));
+    //let normFitness = (d.fitness-minFitness)/(maxFitness-minFitness);
+    let green = 0;
+    let red = 0;
+    let brightness = 0.92;
+    if(normFitness <= 0.75){
+      red = Math.floor(-340 * normFitness + 255);
+
+    }
+    if(normFitness < 0.5){
+      red += Math.floor((340*normFitness)*brightness);
+      green += Math.floor((340*normFitness)*brightness*0.85);
+    }
+    if(normFitness >= 0.25){
+      green = Math.floor((normFitness-0.25)*340);
+    }
+    if(normFitness >= 0.5){
+      red += Math.floor((340-340*normFitness)*brightness);
+      green += Math.floor((340-340*normFitness)*brightness*0.85);
+    }
+      return  "rgba("+red+","+green+",0,1)";
     })
   .call(d3.drag()
   .on("start", dragstarted2));
